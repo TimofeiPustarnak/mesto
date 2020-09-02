@@ -1,0 +1,11 @@
+@import url(./__image/header__image.css);
+@import url(./__line/header__line.css);
+
+.header {
+  width: 882px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 45px;
+  margin-bottom: 40px;
+}
