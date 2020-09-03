@@ -9,3 +9,9 @@
   margin: 0 0 60px calc((100% - 582px) / 2);
  } 
 }
+
+@media (max-width: 649px) {
+  .footer {
+    margin: 0 0 60px calc((100% - 282px) / 2);
+  }
+}

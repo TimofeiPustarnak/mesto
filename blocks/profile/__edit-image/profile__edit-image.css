@@ -1,0 +1,6 @@
+@media (max-width: 649px) {
+  .profile__edit-image {
+    width: 11px;
+    height: 11px;
+  }
+}

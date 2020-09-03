@@ -5,6 +5,7 @@
 @import url(./__edit/profile__edit.css);
 @import url(./__edit-button/profile__edit-button.css);
 @import url(./__add-button/profile__add-button.css);
+@import url(./__edit-image/profile__edit-image.css);
 
 .profile {
   width: 882px;
@@ -14,9 +15,15 @@
 
 @media (max-width: 1023px) {
   .profile {
-    width: 710px;
+    width: 582px;
     flex-direction: column;
     align-items: center;
     margin: 0 0 50px;
+  }
+}
+
+@media (max-width: 649px) {
+  .profile {
+    width: 100%;
   }
 }

@@ -2,3 +2,11 @@
   width: 142px;
   margin-bottom: 40px;
 }
+
+@media (max-width: 649px) {
+  .header__image {
+    width: 103px;
+    height: 24px;
+    margin: 0 0 31px 27px;
+  }
+}
