@@ -3,3 +3,9 @@
   align-self: flex-start;
   margin: 0 0 60px calc((100% - 882px) / 2);
 }
+
+@media (max-width: 1023px) {
+ .footer {
+  margin: 0 0 60px calc((100% - 582px) / 2);
+ } 
+}

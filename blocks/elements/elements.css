@@ -10,3 +10,10 @@
   grid-template-columns: repeat(3, 1fr);
   margin-bottom: 66px;
 }
+
+@media (max-width: 1023px) {
+ .elements {
+   width: 582px;
+   grid-template-columns: repeat(2, 1fr);
+ } 
+}
