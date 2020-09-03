@@ -11,8 +11,15 @@
   color: #FFFFFF;
   transition: all .3s ease;
   border: none;
+  padding: 0;
 }
 
 .popup__submit-button:hover {
   opacity: .8;
+}
+
+@media (max-width: 499px) {
+  .popup__submit-button {
+    width: 240px;
+  }
 }

@@ -10,3 +10,10 @@
   align-items: center;
   position: relative;
 }
+
+@media (max-width: 499px) {
+  .popup__container {
+    width: 260px;
+    height: 270px;
+  }
+}

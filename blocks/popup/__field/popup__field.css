@@ -9,3 +9,14 @@
 .popup__field:last-of-type {
   margin-bottom: 48px;
 }
+
+@media (max-width: 499px) {
+  .popup__field {
+    width: 240px;
+    margin: 0 0 20px;
+  }
+
+  .popup__field:last-of-type {
+    margin-bottom: 35px;
+  }  
+}
