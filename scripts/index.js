@@ -9,10 +9,8 @@ let popupFieldName = popup.querySelector('.popup__field_name');
 let popupFieldDescription = popup.querySelector('.popup__field_description');
 let popupContainer = popup.querySelector('.popup__container');
 
-function fieldText() {
-  popupFieldName.setAttribute('value', 'Жак-Ив Кусто');
-  popupFieldDescription.setAttribute('value', 'Исследователь океана');
-}
+popupFieldName.setAttribute('value', 'Жак-Ив Кусто');
+popupFieldDescription.setAttribute('value', 'Исследователь океана');
 
 function openPopup() {
   popup.classList.add('popup_opened');
@@ -36,6 +34,5 @@ function formSubmitHandler(evt) {
 editButton.addEventListener('click', openPopup);
 closeButton.addEventListener('click', closePopup);
 popupContainer.addEventListener('submit', formSubmitHandler);
-fieldText();
 editProfile();
 
