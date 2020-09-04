@@ -12,7 +12,7 @@
 
 @media (max-width: 499px) {
   .popup__field {
-    width: 240px;
+    width: 80%;
     margin: 0 0 20px;
   }
 
