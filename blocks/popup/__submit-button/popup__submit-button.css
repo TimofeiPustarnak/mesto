@@ -18,6 +18,10 @@
   opacity: .8;
 }
 
+.popup__submit-button:focus {
+  outline: none;
+}
+
 @media (max-width: 499px) {
   .popup__submit-button {
     width: 80%;
