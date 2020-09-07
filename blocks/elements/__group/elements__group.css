@@ -1,8 +1,6 @@
 .elements__group {
-  margin: 25px 15px 31px 21px;
+  margin: 18px 15px 31px 21px;
   display: flex;
   justify-content: space-between;
-  width: 246px;
-  height: 23px;
   align-items: flex-end;
 }

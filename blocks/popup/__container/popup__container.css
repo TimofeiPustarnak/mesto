@@ -5,6 +5,8 @@
   margin: auto;
   width: 430px;
   height: 330px;
+  /* почему не фиксированные параметры?
+   Иначе придется писать больше кода ради абсолютно идентичного результата*/
   display: flex;
   flex-direction: column;
   align-items: center;

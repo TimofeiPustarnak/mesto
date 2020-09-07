@@ -9,10 +9,11 @@
   align-self: center;
   padding: 0;
   transition: all .3s ease;
+  cursor: pointer;
 }
 
 .profile__add-button:hover {
-  opacity: .8;
+  opacity: .6;
 }
 
 .profile__add-button:focus {

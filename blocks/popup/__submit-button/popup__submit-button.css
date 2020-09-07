@@ -12,6 +12,7 @@
   transition: all .3s ease;
   border: none;
   padding: 0;
+  cursor: pointer;
 }
 
 .popup__submit-button:hover {

@@ -1,7 +1,7 @@
 .elements__element {
   background-color: white;
   border-radius: 10px;
-  width: 282px;
   height: 361px;
+  /* без высоты или с минимальной высотой блок становится чуть выше чем в макете */
   overflow: hidden;
 }

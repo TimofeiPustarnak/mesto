@@ -5,6 +5,8 @@
   line-height: 29px;
   margin: 0;
   width: 200px;
+  /* тогда непонятно как реализовать переполнение для многоточия, 
+  иначе карточка будет просто растягиваться т.к и ей высоту сказали убрать */
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
