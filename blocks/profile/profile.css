@@ -8,15 +8,15 @@
 @import url(./__edit-image/profile__edit-image.css);
 
 .profile {
-  width: 882px;
-  /* если использовать минимальную ширину появляется горизонтальный скролл*/
+  width:100%;
+  max-width:882px;
   display: flex;
   margin: 0 0 50px;
 }
 
 @media (max-width: 1023px) {
   .profile {
-    width: 582px;
+    max-width: 582px;
     flex-direction: column;
     align-items: center;
   }
@@ -24,6 +24,6 @@
 
 @media (max-width: 649px) {
   .profile {
-    width: 100%;
+    max-width: 100%;
   }
 }

@@ -1,13 +1,9 @@
 .popup__field {
-  width: 358px;
-  height: 9%;
+  width: 83%;
+  line-height: 30px;
   margin: 0 0 30px;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
-}
-
-.popup__field:last-of-type {
-  margin-bottom: 48px;
 }
 
 .popup__field:focus {
@@ -16,11 +12,6 @@
 
 @media (max-width: 499px) {
   .popup__field {
-    width: 80%;
     margin: 0 0 20px;
   }
-
-  .popup__field:last-of-type {
-    margin-bottom: 35px;
-  }  
 }

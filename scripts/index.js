@@ -11,8 +11,6 @@ let popupContainer = popup.querySelector('.popup__container');
 
 popupFieldName.setAttribute('value', 'Жак-Ив Кусто');
 popupFieldDescription.setAttribute('value', 'Исследователь океана');
-profileTitle.textContent = `${popupFieldName.value}`;
-profileSubitle.textContent = `${popupFieldDescription.value}`;
 
 function openPopup() {
   popup.classList.add('popup_opened');

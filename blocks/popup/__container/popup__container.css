@@ -3,10 +3,8 @@
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
   margin: auto;
-  width: 430px;
-  height: 330px;
-  /* почему не фиксированные параметры?
-   Иначе придется писать больше кода ради абсолютно идентичного результата*/
+  min-width: 430px;
+  min-height: 330px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,7 +13,7 @@
 
 @media (max-width: 499px) {
   .popup__container {
-    width: calc(100% - 40px);
-    height: 270px;
+    min-width: calc(100% - 40px);
+    min-height: 270px;
   }
 }

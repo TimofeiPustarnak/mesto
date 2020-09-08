@@ -4,9 +4,7 @@
   font-size: 24px;
   line-height: 29px;
   margin: 0;
-  width: 200px;
-  /* тогда непонятно как реализовать переполнение для многоточия, 
-  иначе карточка будет просто растягиваться т.к и ей высоту сказали убрать */
+  max-width: 200px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
