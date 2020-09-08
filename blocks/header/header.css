@@ -7,10 +7,7 @@
   align-items: flex-start;
   margin-top: 45px;
   margin-bottom: 40px;
-  border-bottom: 2px solid rgba(84, 84, 84, .7);;
-  /* в макете пустой элемент с границей в 1 пиксель, 
-  как я понимаю верхняя и нижняя граница там складываются и получается 2 пикселя
-  у меня же только нижняя граница */
+  border-bottom: 1px solid rgba(84, 84, 84, .7);
 }
 
 @media (max-width: 1023px) {
