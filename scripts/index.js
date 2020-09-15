@@ -1,6 +1,7 @@
 let page = document.querySelector('.page');
 let profile = page.querySelector('.profile');
-let popup = page.querySelector('.popup');
+let popup = page.querySelector('#popup-person');
+let popupCard = page.querySelector('#popup-card');
 let editButton = profile.querySelector('.profile__edit-button');
 let closeButton = popup.querySelector('.popup__close-button');
 let profileTitle = profile.querySelector('.profile__title');
@@ -9,6 +10,8 @@ let popupFieldName = popup.querySelector('.popup__field_type_name');
 let popupFieldDescription = popup.querySelector('.popup__field_type_description');
 let popupContainer = popup.querySelector('.popup__container');
 let elements = page.querySelector('.elements');
+let profileAddButton = profile.querySelector('.profile__add-button');
+let popupCardCloseButton = popupCard.querySelector('.popup__close-button');
 
 popupFieldName.setAttribute('value', 'Жак-Ив Кусто');
 popupFieldDescription.setAttribute('value', 'Исследователь океана');
@@ -50,7 +53,7 @@ function renderCards() {
   });
 }
 
-function openPopup() {
+function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
 
@@ -67,8 +70,14 @@ function formSubmitHandler(evt) {
   closePopup();
 }
 
-editButton.addEventListener('click', openPopup);
+function closePopupCard() {
+  popupCard.classList.remove('popup_opened');
+}
+
+editButton.addEventListener('click', () => openPopup(popup));
 closeButton.addEventListener('click', closePopup);
 popupContainer.addEventListener('submit', formSubmitHandler);
+profileAddButton.addEventListener('click', () => openPopup(popupCard));
+popupCardCloseButton.addEventListener('click', closePopupCard)
 
 renderCards();
