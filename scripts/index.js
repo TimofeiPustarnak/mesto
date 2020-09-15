@@ -12,6 +12,11 @@ let popupContainer = popup.querySelector('.popup__container');
 let elements = page.querySelector('.elements');
 let profileAddButton = profile.querySelector('.profile__add-button');
 let popupCardCloseButton = popupCard.querySelector('.popup__close-button');
+let popupCardContainer = popupCard.querySelector('.popup__container');
+const cardsTemplate = elements.querySelector('#cards').content;
+let popupCardFieldTile = popupCard.querySelector('.popup__field_type_name');
+let popupCardFieldLink = popupCard.querySelector('.popup__field_type_description');
+
 
 popupFieldName.setAttribute('value', 'Жак-Ив Кусто');
 popupFieldDescription.setAttribute('value', 'Исследователь океана');
@@ -44,11 +49,13 @@ const initialCards = [
 ];
 
 function renderCards() {
-  const cardsTemplate = elements.querySelector('#cards').content;
   initialCards.forEach((card, i) => {
     const cardTemplate = cardsTemplate.cloneNode(true);
     cardTemplate.querySelector('.elements__title').textContent = initialCards[i].name;
     cardTemplate.querySelector('.elements__image').setAttribute('src', `${initialCards[i].link}`);
+    cardTemplate.querySelector('.elements__like').addEventListener('click', function (evt) {
+      evt.target.classList.toggle('elements__like_active');
+    });
     elements.append(cardTemplate);
   });
 }
@@ -74,10 +81,21 @@ function closePopupCard() {
   popupCard.classList.remove('popup_opened');
 }
 
+function formCardSubmitHandler(evt) {
+  evt.preventDefault();
+  const cardTemplate = cardsTemplate.cloneNode(true);
+  cardTemplate.querySelector('.elements__title').textContent = popupCardFieldTile.value;
+  cardTemplate.querySelector('.elements__image').setAttribute('src', `${popupCardFieldLink.value}`);
+  console.log(popupCardFieldTile.value);
+  elements.prepend(cardTemplate);
+  closePopupCard();
+}
+
 editButton.addEventListener('click', () => openPopup(popup));
 closeButton.addEventListener('click', closePopup);
 popupContainer.addEventListener('submit', formSubmitHandler);
 profileAddButton.addEventListener('click', () => openPopup(popupCard));
-popupCardCloseButton.addEventListener('click', closePopupCard)
+popupCardCloseButton.addEventListener('click', closePopupCard);
+popupCardContainer.addEventListener('submit', formCardSubmitHandler)
 
 renderCards();

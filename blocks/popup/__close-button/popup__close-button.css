@@ -15,7 +15,7 @@
   opacity: .6;
 }
 
-.popup__close-button {
+.popup__close-button:focus {
   outline: none;
 }
 
