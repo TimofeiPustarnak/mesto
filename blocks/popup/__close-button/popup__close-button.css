@@ -5,8 +5,8 @@
   border: none;
   align-self: flex-end;
   padding: 0;
-  left: 425px;
-  bottom: 325px;
+  right: -30px;
+  top: -30px;
   transition: all .3s ease;
   cursor: pointer;
 }
@@ -21,7 +21,6 @@
 
 @media (max-width: 499px) {
   .popup__close-button {
-    left: calc(100% - 40px);
-    bottom: 270px;
+    right: 0;
   }
 }
