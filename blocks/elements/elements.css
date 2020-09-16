@@ -3,6 +3,7 @@
 @import url(./__title/elements__title.css);
 @import url(./__group/elements__group.css);
 @import url(./__like/elements__like.css);
+@import url(./__delete/elements__delete.css);
 .elements {
   display: grid;
   column-gap: 18px;

@@ -54,7 +54,11 @@ function renderCards() {
     cardTemplate.querySelector('.elements__title').textContent = initialCards[i].name;
     cardTemplate.querySelector('.elements__image').setAttribute('src', `${initialCards[i].link}`);
     cardTemplate.querySelector('.elements__like').addEventListener('click', function (evt) {
-      evt.target.classList.toggle('elements__like_active');
+    evt.target.classList.toggle('elements__like_active');
+    });
+    cardTemplate.querySelector('.elements__delete').addEventListener('click', function (evt) {
+      const card = evt.target.closest('.elements__element');
+      card.remove();
     });
     elements.append(cardTemplate);
   });
@@ -86,7 +90,15 @@ function formCardSubmitHandler(evt) {
   const cardTemplate = cardsTemplate.cloneNode(true);
   cardTemplate.querySelector('.elements__title').textContent = popupCardFieldTile.value;
   cardTemplate.querySelector('.elements__image').setAttribute('src', `${popupCardFieldLink.value}`);
-  console.log(popupCardFieldTile.value);
+  cardTemplate.querySelector('.elements__like').addEventListener('click', function (evt) {
+  evt.target.classList.toggle('elements__like_active');
+  });
+  cardTemplate.querySelector('.elements__delete').addEventListener('click', function (evt) {
+    const card = evt.target.closest('.elements__element');
+    card.remove();
+  });
+  popupCardFieldTile.value = '';
+  popupCardFieldLink.value = '';
   elements.prepend(cardTemplate);
   closePopupCard();
 }
