@@ -9,9 +9,10 @@
 @import url(./__image-title/popup__image-title.css);
 
 .popup {
-  display: none;
   position: fixed;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
+  visibility: hidden;
+  opacity: 0;
 }
