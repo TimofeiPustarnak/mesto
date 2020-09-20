@@ -117,4 +117,4 @@ profileAddButton.addEventListener('click', () => openPopup(popupCard));
 popupCardCloseButton.addEventListener('click', closePopupCard);
 popupCardContainer.addEventListener('submit', formCardSubmitHandler)
 
-renderCards();
+renderCards(); 
