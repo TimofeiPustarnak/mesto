@@ -10,3 +10,4 @@
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__field/_type/_description/popup__field_type_description.css);
 @import url(../blocks/elements/__like/_active/elements__like_active.css);
+@import url(../blocks/popup/__submit-button_inactive/popup__submit-button_inactive.css);

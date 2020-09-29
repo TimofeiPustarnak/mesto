@@ -21,8 +21,8 @@ const imageInPopup = popupImage.querySelector('.popup__image');
 const popupImageTitle= popupImage.querySelector('.popup__image-title');
 const popupCloseButton= popupImage.querySelector('.popup__close-button');
 
-popupFieldName.setAttribute('value', 'Жак-Ив Кусто');
-popupFieldDescription.setAttribute('value', 'Исследователь океана');
+popupFieldName.setAttribute('value', `${profileTitle.textContent}`);
+popupFieldDescription.setAttribute('value', `${profileSubitle.textContent}`);
 
 const initialCards = [
   {
@@ -50,6 +50,76 @@ const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
+function enableValidation() {
+  const formList = Array.from(document.querySelectorAll('.popup__container'));
+  formList.forEach((formElement) => {
+    formElement.addEventListener('input', function (evt) {
+      evt.preventDefault();
+    });
+    //const fieldsetList = Array.from(formElement.querySelectorAll('.popup__field'));
+    // fieldsetList.forEach((fieldSet) => {
+    //   console.log(fieldSet);
+    //   setEventListeners(fieldSet);
+    //  }); 
+     //console.log(formElement);
+    setEventListeners(formElement);
+  });
+}
+
+function setEventListeners (formElement) {
+  const inputList = Array.from(formElement.querySelectorAll('.popup__field'));
+  const buttonElement = formElement.querySelector('.popup__submit-button');
+  toggleButtonState(inputList, buttonElement);
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', function () {
+      checkInputValidity(formElement, inputElement);
+      toggleButtonState(inputList, buttonElement);
+    });
+  });
+}
+
+function toggleButtonState(inputList, buttonElement) {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add('popup__submit-button_inactive');
+  } else {
+    buttonElement.classList.remove('popup__submit-button_inactive');
+  }
+}
+
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  })
+}
+
+function checkInputValidity(formElement, inputElement) {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
+  }
+}
+
+function showInputError (formElement, inputElement, errorMessage) {
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  //inputElement.classList.add('form__input_type_error');
+  errorElement.textContent = errorMessage;
+  //errorElement.classList.add('form__input-error_active');
+}
+
+function hideInputError(formElement, inputElement) {
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  //inputElement.classList.remove('form__input_type_error');
+  //errorElement.classList.remove('form__input-error_active');
+  errorElement.textContent = '';
+}
+
+
+
+
+
+
 
 function renderCards() {
   initialCards.forEach((card, i) => {
@@ -121,3 +191,4 @@ popupCardCloseButton.addEventListener('click', closePopupCard);
 popupCardContainer.addEventListener('submit', formCardSubmitHandler)
 
 renderCards();
+enableValidation();
