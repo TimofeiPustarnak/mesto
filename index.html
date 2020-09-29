@@ -54,8 +54,14 @@
           <img src="./images/Vector(1).svg" alt="закрыть" class="popup__close-image">
         </button>
         <h3 class="popup__title">Редактировать профиль</h3>
-        <input type="text" class="popup__field popup__field_type_name" name="name" placeholder="Имя">
-        <input  type="text" class="popup__field popup__field_type_description" name="description" placeholder="О себе">
+        <div class="popup__input-wrapper">
+          <input type="text" class="popup__field popup__field_type_name" name="name" id = 'name-input' placeholder="Имя">
+          <span class="popup__field-error" id = 'name-input-error'>шрекс шрекс</span>
+        </div>
+        <div class="popup__input-wrapper">
+          <input  type="text" class="popup__field popup__field_type_description" id = 'description-input' name="description" placeholder="О себе">
+          <span class="popup__field-error" id = 'description-input-error'>шрекс шрекс</span>
+        </div>
         <input type="submit" class="popup__submit-button" name="submit-button" value="Сохранить">
       </form>
     </div>
@@ -66,8 +72,14 @@
           <img src="./images/Vector(1).svg" alt="закрыть" class="popup__close-image">
         </button>
         <h3 class="popup__title">Новое место</h3>
-        <input type="text" class="popup__field popup__field_type_name" name="title" placeholder="Название">
-        <input  type="text" class="popup__field popup__field_type_description" name="link" placeholder="Ссылка на картинку">
+        <div class="popup__input-wrapper">
+          <input type="text" class="popup__field popup__field_type_name" name="title" id = 'title-input' placeholder="Название">
+          <span class="popup__field-error" id = 'title-input-error'>шрекс шрекс</span>
+        </div>
+        <div class="popup__input-wrapper">
+          <input  type="text" class="popup__field popup__field_type_description" id = 'link-input' name="link" placeholder="Ссылка на картинку">
+          <span class="popup__field-error" id = 'link-input-error'>шрекс шрекс</span>
+        </div>
         <input type="submit" class="popup__submit-button" name="submit-button" value="Создать">
       </form>
     </div>

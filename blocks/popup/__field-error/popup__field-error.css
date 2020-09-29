@@ -1,0 +1,10 @@
+.popup__field-error {
+  position: absolute;
+  left: 0;
+  top: 33px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FF0000;
+}

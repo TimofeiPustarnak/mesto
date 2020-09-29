@@ -84,10 +84,6 @@ function renderCard (link1, textContent1, cardTemplate, cardImage, append) {
     });
     append ? elements.append(cardTemplate) : elements.prepend(cardTemplate); 
 }
-
-    
-
-
 function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
@@ -124,4 +120,4 @@ profileAddButton.addEventListener('click', () => openPopup(popupCard));
 popupCardCloseButton.addEventListener('click', closePopupCard);
 popupCardContainer.addEventListener('submit', formCardSubmitHandler)
 
-renderCards(); 
+renderCards();
