@@ -51,76 +51,6 @@ const initialCards = [
   }
 ];
 
-function enableValidation() {
-  const formList = Array.from(document.querySelectorAll('.popup__container'));
-  formList.forEach((formElement) => {
-    formElement.addEventListener('input', function (evt) {
-      evt.preventDefault();
-    });
-    //const fieldsetList = Array.from(formElement.querySelectorAll('.popup__field'));
-    // fieldsetList.forEach((fieldSet) => {
-    //   console.log(fieldSet);
-    //   setEventListeners(fieldSet);
-    //  }); 
-     //console.log(formElement);
-    setEventListeners(formElement);
-  });
-}
-
-function setEventListeners (formElement) {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__field'));
-  const buttonElement = formElement.querySelector('.popup__submit-button');
-  toggleButtonState(inputList, buttonElement);
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
-    });
-  });
-}
-
-function toggleButtonState(inputList, buttonElement) {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('popup__submit-button_inactive');
-  } else {
-    buttonElement.classList.remove('popup__submit-button_inactive');
-  }
-}
-
-function hasInvalidInput(inputList) {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  })
-}
-
-function checkInputValidity(formElement, inputElement) {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    hideInputError(formElement, inputElement);
-  }
-}
-
-function showInputError (formElement, inputElement, errorMessage) {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  //inputElement.classList.add('form__input_type_error');
-  errorElement.textContent = errorMessage;
-  //errorElement.classList.add('form__input-error_active');
-}
-
-function hideInputError(formElement, inputElement) {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  //inputElement.classList.remove('form__input_type_error');
-  //errorElement.classList.remove('form__input-error_active');
-  errorElement.textContent = '';
-}
-
-
-
-
-
-
-
 function renderCards() {
   initialCards.forEach((card, i) => {
     createCard (initialCards[i].name, initialCards[i].link, true);
@@ -165,10 +95,13 @@ function closePopup() {
 }
 
 function formSubmitHandler(evt) {
-  evt.preventDefault();
-  profileTitle.textContent = `${popupFieldName.value}`;
-  profileSubitle.textContent = `${popupFieldDescription.value}`;
-  closePopup();
+  const fields = Array.from(popupContainer.querySelectorAll('.popup__field'));
+  if (!fields.some(elem => elem.validity.valid == false)) {
+    evt.preventDefault();
+    profileTitle.textContent = `${popupFieldName.value}`;
+    profileSubitle.textContent = `${popupFieldDescription.value}`;
+    closePopup();
+  }
 }
 
 function closePopupCard() {
@@ -176,11 +109,15 @@ function closePopupCard() {
 }
 
 function formCardSubmitHandler(evt) {
-  evt.preventDefault();
-  createCard(popupCardFieldTile.value, popupCardFieldLink.value, false)
-  popupCardFieldTile.value = '';
-  popupCardFieldLink.value = '';
-  closePopupCard();
+  const fields = Array.from(popupCardContainer.querySelectorAll('.popup__field'));
+   console.log(!fields.some(elem => elem.validity.valid == false));
+  if (!fields.some(elem => elem.validity.valid == false)) {
+    evt.preventDefault();
+    createCard(popupCardFieldTile.value, popupCardFieldLink.value, false)
+    popupCardFieldTile.value = '';
+    popupCardFieldLink.value = '';
+    closePopupCard();
+  }
 }
 
 editButton.addEventListener('click', () => openPopup(popup));
@@ -191,4 +128,3 @@ popupCardCloseButton.addEventListener('click', closePopupCard);
 popupCardContainer.addEventListener('submit', formCardSubmitHandler)
 
 renderCards();
-enableValidation();
