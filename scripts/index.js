@@ -110,7 +110,6 @@ function closePopupCard() {
 
 function formCardSubmitHandler(evt) {
   const fields = Array.from(popupCardContainer.querySelectorAll('.popup__field'));
-   console.log(!fields.some(elem => elem.validity.valid == false));
   if (!fields.some(elem => elem.validity.valid == false)) {
     evt.preventDefault();
     createCard(popupCardFieldTile.value, popupCardFieldLink.value, false)
