@@ -20,7 +20,17 @@ const popupImage = page.querySelector('#popup-image');
 const imageInPopup = popupImage.querySelector('.popup__image');
 const popupImageTitle= popupImage.querySelector('.popup__image-title');
 const popupCloseButton= popupImage.querySelector('.popup__close-button');
-
+const formList = Array.from(document.querySelectorAll('.popup'));
+  formList.forEach((formElement) => {
+    formElement.addEventListener('click', function (evt) {
+        if (evt.target.id == 'popup-card') {
+          closePopupCard();
+        }
+        if (evt.target.id == 'popup-person') {
+          closePopup();
+        }
+  });
+});
 popupFieldName.setAttribute('value', `${profileTitle.textContent}`);
 popupFieldDescription.setAttribute('value', `${profileSubitle.textContent}`);
 
@@ -124,6 +134,17 @@ closeButton.addEventListener('click', closePopup);
 popupContainer.addEventListener('submit', formSubmitHandler);
 profileAddButton.addEventListener('click', () => openPopup(popupCard));
 popupCardCloseButton.addEventListener('click', closePopupCard);
-popupCardContainer.addEventListener('submit', formCardSubmitHandler)
-
+popupCardContainer.addEventListener('submit', formCardSubmitHandler);
+document.addEventListener('keydown', function (evt) {
+  if (evt.key == 'Escape' && page.querySelector('.popup_opened') !== null) {
+    if (page.querySelector('.popup_opened').id == 'popup-card') {
+      closePopupCard();
+      return;
+    }
+    if (page.querySelector('.popup_opened').id == 'popup-person') {
+      closePopup();
+      return;
+    }
+  }
+}); 
 renderCards();

@@ -9,6 +9,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
+  cursor: default;
 }
 
 @media (max-width: 499px) {
