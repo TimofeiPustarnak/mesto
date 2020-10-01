@@ -89,7 +89,7 @@ function renderCard (link, text, cardTemplate, cardImage) {
     });
 
     cardImage.addEventListener('click', function () {
-      popupImage.classList.add('popup_opened');
+      openPopup(popupImage);
       imageInPopup.src = link;
       imageInPopup.alt = text;
       popupImageTitle.textContent = text;
@@ -103,7 +103,29 @@ function closePopupImage() {
   popupImage.classList.remove('popup_opened');
 }
 function openPopup(popup) {
+  document.addEventListener('keydown', closePopupViaOverlay);
   popup.classList.add('popup_opened');
+}
+
+function closePopupViaOverlay(evt) {
+  console.log(evt.key);
+  if (evt.key == 'Escape' && page.querySelector('.popup_opened') !== null) {
+    if (page.querySelector('.popup_opened').id == 'popup-card') {
+      closePopupCard();
+      document.removeEventListener('keydown', closePopupViaOverlay());
+      return;
+    }
+    if (page.querySelector('.popup_opened').id == 'popup-person') {
+      closePopup();
+      document.removeEventListener('keydown', closePopupViaOverlay());
+      return;
+    }
+    if (page.querySelector('.popup_opened').id == 'popup-image') {
+      closePopupImage();
+      document.removeEventListener('keydown', closePopupViaOverlay());
+      return;
+    }
+  }
 }
 
 function closePopup() {
@@ -139,21 +161,5 @@ closeButton.addEventListener('click', closePopup);
 popupContainer.addEventListener('submit', formSubmitHandler);
 profileAddButton.addEventListener('click', () => openPopup(popupCard));
 popupCardCloseButton.addEventListener('click', closePopupCard);
-popupCardContainer.addEventListener('submit', formCardSubmitHandler);
-document.addEventListener('keydown', function (evt) {
-  if (evt.key == 'Escape' && page.querySelector('.popup_opened') !== null) {
-    if (page.querySelector('.popup_opened').id == 'popup-card') {
-      closePopupCard();
-      return;
-    }
-    if (page.querySelector('.popup_opened').id == 'popup-person') {
-      closePopup();
-      return;
-    }
-    if (page.querySelector('.popup_opened').id == 'popup-image') {
-      closePopupImage();
-      return;
-    }
-  }
-}); 
+popupCardContainer.addEventListener('submit', formCardSubmitHandler); 
 renderCards();
