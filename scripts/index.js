@@ -21,6 +21,8 @@ const imageInPopup = popupImage.querySelector('.popup__image');
 const popupImageTitle= popupImage.querySelector('.popup__image-title');
 const popupCloseButton= popupImage.querySelector('.popup__close-button');
 const formList = Array.from(document.querySelectorAll('.popup'));
+const popupPersonFields = Array.from(popupContainer.querySelectorAll('.popup__field'));
+const PopupCardFields = Array.from(popupCardContainer.querySelectorAll('.popup__field'));
   formList.forEach((formElement) => {
     formElement.addEventListener('click', function (evt) {
         if (evt.target.id == 'popup-card') {
@@ -28,6 +30,9 @@ const formList = Array.from(document.querySelectorAll('.popup'));
         }
         if (evt.target.id == 'popup-person') {
           closePopup();
+        }
+        if (evt.target.id == 'popup-image') {
+          closePopupImage();
         }
   });
 });
@@ -62,19 +67,19 @@ const initialCards = [
 ];
 
 function renderCards() {
-  initialCards.forEach((card, i) => {
+  initialCards.reverse().forEach((card, i) => {
     createCard (initialCards[i].name, initialCards[i].link, true);
   });
 }
-function createCard (textContent1, link1, append) {
+function createCard (text, link) {
   const cardTemplate = cardsTemplate.cloneNode(true);
-    cardTemplate.querySelector('.elements__title').textContent = textContent1;
+    cardTemplate.querySelector('.elements__title').textContent = text;
     const cardImage = cardTemplate.querySelector('.elements__image');
-    cardImage.src = link1;
-    cardImage.alt = textContent1;
-      renderCard(link1, textContent1, cardTemplate, cardImage, append);
+    cardImage.src = link;
+    cardImage.alt = text;
+      renderCard(link, text, cardTemplate, cardImage);
 }
-function renderCard (link1, textContent1, cardTemplate, cardImage, append) {
+function renderCard (link, text, cardTemplate, cardImage) {
     cardTemplate.querySelector('.elements__like').addEventListener('click', function (evt) {
     evt.target.classList.toggle('elements__like_active');
     });
@@ -85,14 +90,17 @@ function renderCard (link1, textContent1, cardTemplate, cardImage, append) {
 
     cardImage.addEventListener('click', function () {
       popupImage.classList.add('popup_opened');
-      imageInPopup.src = link1;
-      imageInPopup.alt = textContent1;
-      popupImageTitle.textContent = textContent1;
+      imageInPopup.src = link;
+      imageInPopup.alt = text;
+      popupImageTitle.textContent = text;
       popupCloseButton.addEventListener('click', function () {
-      popupImage.classList.remove('popup_opened');
+      closePopupImage();
       });
     });
-    append ? elements.append(cardTemplate) : elements.prepend(cardTemplate); 
+    elements.prepend(cardTemplate); 
+}
+function closePopupImage() {
+  popupImage.classList.remove('popup_opened');
 }
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -100,16 +108,15 @@ function openPopup(popup) {
 
 function closePopup() {
   popup.classList.remove('popup_opened');
-  popupFieldName.value = `${profileTitle.textContent}`;
-  popupFieldDescription.value = `${profileSubitle.textContent}`;
+  popupFieldName.value = profileTitle.textContent;
+  popupFieldDescription.value = profileSubitle.textContent;
 }
 
 function formSubmitHandler(evt) {
-  const fields = Array.from(popupContainer.querySelectorAll('.popup__field'));
-  if (!fields.some(elem => elem.validity.valid == false)) {
+  if (!popupPersonFields.some(elem => elem.validity.valid == false)) {
     evt.preventDefault();
-    profileTitle.textContent = `${popupFieldName.value}`;
-    profileSubitle.textContent = `${popupFieldDescription.value}`;
+    profileTitle.textContent = popupFieldName.value;
+    profileSubitle.textContent = popupFieldDescription.value;
     closePopup();
   }
 }
@@ -119,8 +126,7 @@ function closePopupCard() {
 }
 
 function formCardSubmitHandler(evt) {
-  const fields = Array.from(popupCardContainer.querySelectorAll('.popup__field'));
-  if (!fields.some(elem => elem.validity.valid == false)) {
+  if (!PopupCardFields.some(elem => elem.validity.valid == false)) {
     evt.preventDefault();
     createCard(popupCardFieldTile.value, popupCardFieldLink.value, false)
     popupCardFieldTile.value = '';
@@ -143,6 +149,10 @@ document.addEventListener('keydown', function (evt) {
     }
     if (page.querySelector('.popup_opened').id == 'popup-person') {
       closePopup();
+      return;
+    }
+    if (page.querySelector('.popup_opened').id == 'popup-image') {
+      closePopupImage();
       return;
     }
   }
