@@ -112,17 +112,17 @@ function closePopupViaOverlay(evt) {
   if (evt.key == 'Escape' && page.querySelector('.popup_opened') !== null) {
     if (page.querySelector('.popup_opened').id == 'popup-card') {
       closePopupCard();
-      document.removeEventListener('keydown', closePopupViaOverlay());
+      document.removeEventListener('keydown', closePopupViaOverlay);
       return;
     }
     if (page.querySelector('.popup_opened').id == 'popup-person') {
       closePopup();
-      document.removeEventListener('keydown', closePopupViaOverlay());
+      document.removeEventListener('keydown', closePopupViaOverlay);
       return;
     }
     if (page.querySelector('.popup_opened').id == 'popup-image') {
       closePopupImage();
-      document.removeEventListener('keydown', closePopupViaOverlay());
+      document.removeEventListener('keydown', closePopupViaOverlay);
       return;
     }
   }
