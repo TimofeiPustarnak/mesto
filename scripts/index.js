@@ -108,7 +108,6 @@ function openPopup(popup) {
 }
 
 function closePopupViaOverlay(evt) {
-  console.log(evt.key);
   if (evt.key == 'Escape' && page.querySelector('.popup_opened') !== null) {
     if (page.querySelector('.popup_opened').id == 'popup-card') {
       closePopupCard();
