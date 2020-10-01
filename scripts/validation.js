@@ -47,6 +47,10 @@ function checkInputValidity(formElement, inputElement) {
   }
 }
 
+function checkFieldsValid(fieldsList) {
+  return !fieldsList.some(elem => elem.validity.valid == false);
+}
+
 function showInputError (formElement, inputElement, errorMessage) {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   errorElement.textContent = errorMessage;

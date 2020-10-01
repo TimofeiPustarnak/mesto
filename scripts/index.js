@@ -113,20 +113,19 @@ function closePopup() {
 }
 
 function formSubmitHandler(evt) {
-  if (!popupPersonFields.some(elem => elem.validity.valid == false)) {
+  if (checkFieldsValid(popupPersonFields)) {
     evt.preventDefault();
     profileTitle.textContent = popupFieldName.value;
     profileSubitle.textContent = popupFieldDescription.value;
     closePopup();
   }
 }
-
 function closePopupCard() {
   popupCard.classList.remove('popup_opened');
 }
 
 function formCardSubmitHandler(evt) {
-  if (!PopupCardFields.some(elem => elem.validity.valid == false)) {
+  if (checkFieldsValid(PopupCardFields)) {
     evt.preventDefault();
     createCard(popupCardFieldTile.value, popupCardFieldLink.value, false)
     popupCardFieldTile.value = '';
