@@ -9,8 +9,14 @@
   white-space: nowrap;
   overflow: hidden;
   width: 295px;
-  text-align: center;
 }
+
+@media (max-width: 1023px) {
+  .profile__title {
+    text-align: center;
+  }
+}
+
 
 @media (max-width: 649px) {
   .profile__title {
