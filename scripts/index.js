@@ -3,7 +3,7 @@ const profile = page.querySelector('.profile');
 const popup = page.querySelector('#popup-person');
 const popupCard = page.querySelector('#popup-card');
 const editButton = profile.querySelector('.profile__edit-button');
-const closeButton = popup.querySelector('.popup__close-button');
+// const closeButton = popup.querySelector('.popup__close-button');
 const profileTitle = profile.querySelector('.profile__title');
 const profileSubitle = profile.querySelector('.profile__subtitle');
 const popupFieldName = popup.querySelector('.popup__field_type_name');
@@ -11,18 +11,19 @@ const popupFieldDescription = popup.querySelector('.popup__field_type_descriptio
 const popupContainer = popup.querySelector('.popup__container');
 const elements = page.querySelector('.elements');
 const profileAddButton = profile.querySelector('.profile__add-button');
-const popupCardCloseButton = popupCard.querySelector('.popup__close-button');
+// const popupCardCloseButton = popupCard.querySelector('.popup__close-button');
 const popupCardContainer = popupCard.querySelector('.popup__container');
-const cardsTemplate = elements.querySelector('#cards').content;
+// const cardsTemplate = elements.querySelector('#cards').content;
 const popupCardFieldTile = popupCard.querySelector('.popup__field_type_name');
 const popupCardFieldLink = popupCard.querySelector('.popup__field_type_description');
 const popupImage = page.querySelector('#popup-image');
-const imageInPopup = popupImage.querySelector('.popup__image');
-const popupImageTitle= popupImage.querySelector('.popup__image-title');
-const popupCloseButton= popupImage.querySelector('.popup__close-button');
+// const imageInPopup = popupImage.querySelector('.popup__image');
+// const popupImageTitle= popupImage.querySelector('.popup__image-title');
+// const popupCloseButton= popupImage.querySelector('.popup__close-button');
 const formList = Array.from(document.querySelectorAll('.popup'));
 const popupPersonFields = Array.from(popupContainer.querySelectorAll('.popup__field'));
 const PopupCardFields = Array.from(popupCardContainer.querySelectorAll('.popup__field'));
+import Card from './Card.js';
   formList.forEach((formElement) => {
     formElement.addEventListener('click', closePopup);
   });
@@ -58,7 +59,9 @@ const initialCards = [
 
 function renderCards() {
   initialCards.reverse().forEach((card, i) => {
-    createCard (initialCards[i].name, initialCards[i].link);
+    // createCard (initialCards[i].name, initialCards[i].link);
+    const cardElement = new Card(initialCards[i].name, initialCards[i].link, '#cards');
+    elements.prepend(cardElement.getTemplate());
   });
 }
 function openPopup(popup) {
@@ -85,7 +88,9 @@ function formSubmitHandler(evt) {
 function formCardSubmitHandler(evt) {
   if (checkFieldsValid(PopupCardFields)) {
     evt.preventDefault();
-    createCard(popupCardFieldTile.value, popupCardFieldLink.value)
+    // createCard(popupCardFieldTile.value, popupCardFieldLink.value);
+    const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards');
+    elements.prepend(cardElement.getTemplate());
     popupFieldName.value = profileTitle.textContent;
     popupFieldDescription.value = profileSubitle.textContent;
     closePopup(evt);
@@ -101,44 +106,7 @@ popupCardContainer.addEventListener('submit', formCardSubmitHandler);
 // popupCloseButton.addEventListener('click', closePopup);
 renderCards();
 
-class Card {
-  constructor(text, link, template) {
-    this._text = text;
-    this._link = link;
-    this._template = template;
-    this._cardsTemplate = elements.querySelector(this._template).content;
-  }
 
-  _createCard() {
-      this._cardTemplate = this._cardsTemplate.cloneNode(true);
-      this._cardTemplate.querySelector('.elements__title').textContent = this._text;
-      this._cardImage = this._cardTemplate.querySelector('.elements__image');
-      this._cardImage.src = this._link;
-      this._cardImage.alt = this._text;
-      this._renderCard(this._link, this._text);
-  }
-
-  _renderCard (link, text) {
-    this._cardTemplate.querySelector('.elements__like').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('elements__like_active');
-    });
-    this._cardTemplate.querySelector('.elements__delete').addEventListener('click', function (evt) {
-      evt.target.closest('.elements__element').remove();
-    });
-
-    this._cardImage.addEventListener('click', function () {
-      console.log(('b' + 'a' + + 'a' +'a').toLowerCase());
-      openPopup(popupImage);
-      imageInPopup.src = link;
-      imageInPopup.alt = text;
-      popupImageTitle.textContent = text;
-    });
-  }
-  getTemplate() {
-    this._createCard();
-    return(this._cardTemplate);
-  }
-}
 
 const song = new Card('big flop', 'https://static.wikia.nocookie.net/32df47c8-2c98-45f8-b2f5-fe1517b52a9f', '#cards');
 console.log(song._cardTemplate);
