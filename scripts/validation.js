@@ -1,6 +1,7 @@
 export default class FormValidator {
-  constructor(formElement) {
+  constructor(data, formElement) {
     this._formElement = formElement;
+    this._fieldClass = data.fieldClass;
   }
 
   enableValidation() {
@@ -18,10 +19,9 @@ export default class FormValidator {
     this._buttonElement = this._formElement.querySelector('.popup__submit-button');
     this._toggleButtonState();
     this._inputList.forEach((inputElement) => {
-      this._inputElement = inputElement;
-      this._inputElement.addEventListener('input', function () {
-        this._checkInputValidity();
-        this._toggleButtonState();
+      inputElement.addEventListener('input', () => {
+        this._checkInputValidity(inputElement);
+        this._toggleButtonState(inputElement);
       });
     });
   }
@@ -42,23 +42,23 @@ export default class FormValidator {
     })
   }
 
-  _checkInputValidity() {
-    if (!this._inputElement.validity.valid) {
-      this._showInputError(this._inputElement.validationMessage);
+  _checkInputValidity(inputElement) {
+    if (!inputElement.validity.valid) {
+      this._showInputError(inputElement);
     } else {
-      this._hideInputError();
+      this._hideInputError(inputElement);
     }
   }
 
-  _showInputError(errorMessage) {
-    this._errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-    this._errorElement.textContent = errorMessage;
-    this._inputElement.classList.add('popup__field_type_error');
+  _showInputError(inputElement) {
+    this._errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
+    this._errorElement.textContent = inputElement.validationMessage;
+    inputElement.classList.add('popup__field_type_error');
   }
   
-  hideInputError() {
-    this._errorElement = formElement.querySelector(`#${this._inputElement.id}-error`);
+  _hideInputError(inputElement) {
+    this._errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
     this._errorElement.textContent = '';
-    this._inputElement.classList.remove('popup__field_type_error');
+    inputElement.classList.remove('popup__field_type_error');
   }
 }

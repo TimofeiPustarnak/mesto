@@ -86,6 +86,10 @@ function formSubmitHandler(evt) {
   }
 }
 
+function checkFieldsValid(fieldsList) {
+  return !fieldsList.some(elem => elem.validity.valid == false);
+}
+
 function formCardSubmitHandler(evt) {
   if (checkFieldsValid(PopupCardFields)) {
     evt.preventDefault();
@@ -114,13 +118,13 @@ console.log(song._cardTemplate);
 for (let i = 0; i < 5; ++i){
 elements.prepend(song.getTemplate());}
 
-// function enableValidation() {
-//   const formList = Array.from(document.querySelectorAll('.popup__container'));
-//   formList.forEach((formElement) => {
-//     const formValidator = new FormValidator(formElement);
-//     formValidator.enableValidation();
-//   });
-// }
+function enableValidation() {
+  const formList = Array.from(document.querySelectorAll('.popup__container'));
+  formList.forEach((formElement) => {
+    const formValidator = new FormValidator(formElement);
+    formValidator.enableValidation();
+  });
+}
 
 
-// enableValidation();
+enableValidation();
