@@ -58,33 +58,8 @@ const initialCards = [
 
 function renderCards() {
   initialCards.reverse().forEach((card, i) => {
-    createCard (initialCards[i].name, initialCards[i].link, true);
+    createCard (initialCards[i].name, initialCards[i].link);
   });
-}
-function createCard (text, link) {
-  const cardTemplate = cardsTemplate.cloneNode(true);
-    cardTemplate.querySelector('.elements__title').textContent = text;
-    const cardImage = cardTemplate.querySelector('.elements__image');
-    cardImage.src = link;
-    cardImage.alt = text;
-      renderCard(link, text, cardTemplate, cardImage);
-}
-function renderCard (link, text, cardTemplate, cardImage) {
-    cardTemplate.querySelector('.elements__like').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('elements__like_active');
-    });
-    cardTemplate.querySelector('.elements__delete').addEventListener('click', function (evt) {
-      const card = evt.target.closest('.elements__element');
-      card.remove();
-    });
-
-    cardImage.addEventListener('click', function () {
-      openPopup(popupImage);
-      imageInPopup.src = link;
-      imageInPopup.alt = text;
-      popupImageTitle.textContent = text;
-    });
-    elements.prepend(cardTemplate); 
 }
 function openPopup(popup) {
   document.addEventListener('keydown', closePopup);
@@ -92,7 +67,6 @@ function openPopup(popup) {
 }
 
 function closePopup(evt) {
-  console.log(evt.target);
   if (evt.key == 'Escape' || evt.type == 'submit' || evt.target.classList.contains("popup") || evt.target.classList.contains("popup__close-image")) {
     page.querySelector('.popup_opened').classList.remove('popup_opened');
     document.removeEventListener('keydown', closePopup);
@@ -111,7 +85,7 @@ function formSubmitHandler(evt) {
 function formCardSubmitHandler(evt) {
   if (checkFieldsValid(PopupCardFields)) {
     evt.preventDefault();
-    createCard(popupCardFieldTile.value, popupCardFieldLink.value, false)
+    createCard(popupCardFieldTile.value, popupCardFieldLink.value)
     popupFieldName.value = profileTitle.textContent;
     popupFieldDescription.value = profileSubitle.textContent;
     closePopup(evt);
@@ -126,3 +100,47 @@ profileAddButton.addEventListener('click', () => openPopup(popupCard));
 popupCardContainer.addEventListener('submit', formCardSubmitHandler); 
 // popupCloseButton.addEventListener('click', closePopup);
 renderCards();
+
+class Card {
+  constructor(text, link, template) {
+    this._text = text;
+    this._link = link;
+    this._template = template;
+    this._cardsTemplate = elements.querySelector(this._template).content;
+  }
+
+  _createCard() {
+      this._cardTemplate = this._cardsTemplate.cloneNode(true);
+      this._cardTemplate.querySelector('.elements__title').textContent = this._text;
+      this._cardImage = this._cardTemplate.querySelector('.elements__image');
+      this._cardImage.src = this._link;
+      this._cardImage.alt = this._text;
+      this._renderCard(this._link, this._text);
+  }
+
+  _renderCard (link, text) {
+    this._cardTemplate.querySelector('.elements__like').addEventListener('click', function (evt) {
+    evt.target.classList.toggle('elements__like_active');
+    });
+    this._cardTemplate.querySelector('.elements__delete').addEventListener('click', function (evt) {
+      evt.target.closest('.elements__element').remove();
+    });
+
+    this._cardImage.addEventListener('click', function () {
+      console.log(('b' + 'a' + + 'a' +'a').toLowerCase());
+      openPopup(popupImage);
+      imageInPopup.src = link;
+      imageInPopup.alt = text;
+      popupImageTitle.textContent = text;
+    });
+  }
+  getTemplate() {
+    this._createCard();
+    return(this._cardTemplate);
+  }
+}
+
+const song = new Card('big flop', 'https://static.wikia.nocookie.net/32df47c8-2c98-45f8-b2f5-fe1517b52a9f', '#cards');
+console.log(song._cardTemplate);
+for (let i = 0; i < 5; ++i){
+elements.prepend(song.getTemplate());}
