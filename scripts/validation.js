@@ -1,66 +1,64 @@
-function enableValidation() {
-  const formList = Array.from(document.querySelectorAll('.popup__container'));
-  formList.forEach((formElement) => {
-    formElement.addEventListener('input', function (evt) {
+export default class FormValidator {
+  constructor(formElement) {
+    this._formElement = formElement;
+  }
+
+  enableValidation() {
+    this._formElement.addEventListener('input', function (evt) {
       evt.preventDefault();
     });
-    formElement.addEventListener('submit', function(evt) {
+    this._formElement.addEventListener('submit', function(evt) {
       evt.preventDefault();
     });
-    setEventListeners(formElement);
-  });
-}
+    this._setEventListeners();
+  }
 
-function setEventListeners (formElement) {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__field'));
-  const buttonElement = formElement.querySelector('.popup__submit-button');
-  toggleButtonState(inputList, buttonElement);
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
+  _setEventListeners() {
+    this._inputList = Array.from(this._formElement.querySelectorAll('.popup__field'));
+    this._buttonElement = this._formElement.querySelector('.popup__submit-button');
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
+      this._inputElement = inputElement;
+      this._inputElement.addEventListener('input', function () {
+        this._checkInputValidity();
+        this._toggleButtonState();
+      });
     });
-  });
-}
+  }
 
-function toggleButtonState(inputList, buttonElement) {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('popup__submit-button_inactive');
-    buttonElement.setAttribute('disabled', true);
-  } else {
-    buttonElement.classList.remove('popup__submit-button_inactive');
-    buttonElement.removeAttribute('disabled');
+  _toggleButtonState(){
+    if (this._hasInvalidInput(this._inputList)) {
+      this._buttonElement.classList.add('popup__submit-button_inactive');
+      this._buttonElement.setAttribute('disabled', true);
+    } else {
+      this._buttonElement.classList.remove('popup__submit-button_inactive');
+      this._buttonElement.removeAttribute('disabled');
+    }
+  }
+
+  _hasInvalidInput() {
+    return this._inputList.some((inputElement) => {
+      return !inputElement.validity.valid;
+    })
+  }
+
+  _checkInputValidity() {
+    if (!this._inputElement.validity.valid) {
+      this._showInputError(this._inputElement.validationMessage);
+    } else {
+      this._hideInputError();
+    }
+  }
+
+  _showInputError(errorMessage) {
+    this._errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+    this._errorElement.textContent = errorMessage;
+    this._inputElement.classList.add('popup__field_type_error');
+  }
+  
+  hideInputError() {
+    this._errorElement = formElement.querySelector(`#${this._inputElement.id}-error`);
+    this._errorElement.textContent = '';
+    this._inputElement.classList.remove('popup__field_type_error');
   }
 }
-
-function hasInvalidInput(inputList) {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  })
-}
-
-function checkInputValidity(formElement, inputElement) {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    hideInputError(formElement, inputElement);
-  }
-}
-
-function checkFieldsValid(fieldsList) {
-  return !fieldsList.some(elem => elem.validity.valid == false);
-}
-
-function showInputError (formElement, inputElement, errorMessage) {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  errorElement.textContent = errorMessage;
-  inputElement.classList.add('popup__field_type_error');
-}
-
-function hideInputError(formElement, inputElement) {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  errorElement.textContent = '';
-  inputElement.classList.remove('popup__field_type_error');
-}
-
-enableValidation();

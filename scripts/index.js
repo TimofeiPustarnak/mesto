@@ -3,7 +3,7 @@ const profile = page.querySelector('.profile');
 const popup = page.querySelector('#popup-person');
 const popupCard = page.querySelector('#popup-card');
 const editButton = profile.querySelector('.profile__edit-button');
-// const closeButton = popup.querySelector('.popup__close-button');
+const closeButton = popup.querySelector('.popup__close-button');
 const profileTitle = profile.querySelector('.profile__title');
 const profileSubitle = profile.querySelector('.profile__subtitle');
 const popupFieldName = popup.querySelector('.popup__field_type_name');
@@ -11,19 +11,20 @@ const popupFieldDescription = popup.querySelector('.popup__field_type_descriptio
 const popupContainer = popup.querySelector('.popup__container');
 const elements = page.querySelector('.elements');
 const profileAddButton = profile.querySelector('.profile__add-button');
-// const popupCardCloseButton = popupCard.querySelector('.popup__close-button');
+const popupCardCloseButton = popupCard.querySelector('.popup__close-button');
 const popupCardContainer = popupCard.querySelector('.popup__container');
-// const cardsTemplate = elements.querySelector('#cards').content;
+const cardsTemplate = elements.querySelector('#cards').content;
 const popupCardFieldTile = popupCard.querySelector('.popup__field_type_name');
 const popupCardFieldLink = popupCard.querySelector('.popup__field_type_description');
 const popupImage = page.querySelector('#popup-image');
-// const imageInPopup = popupImage.querySelector('.popup__image');
-// const popupImageTitle= popupImage.querySelector('.popup__image-title');
-// const popupCloseButton= popupImage.querySelector('.popup__close-button');
+const imageInPopup = popupImage.querySelector('.popup__image');
+const popupImageTitle= popupImage.querySelector('.popup__image-title');
+const popupCloseButton= popupImage.querySelector('.popup__close-button');
 const formList = Array.from(document.querySelectorAll('.popup'));
 const popupPersonFields = Array.from(popupContainer.querySelectorAll('.popup__field'));
 const PopupCardFields = Array.from(popupCardContainer.querySelectorAll('.popup__field'));
 import Card from './Card.js';
+import FormValidator from './validation.js';
   formList.forEach((formElement) => {
     formElement.addEventListener('click', closePopup);
   });
@@ -105,10 +106,21 @@ profileAddButton.addEventListener('click', () => openPopup(popupCard));
 popupCardContainer.addEventListener('submit', formCardSubmitHandler); 
 // popupCloseButton.addEventListener('click', closePopup);
 renderCards();
-
+export {openPopup, popupImage, imageInPopup, popupImageTitle};
 
 
 const song = new Card('big flop', 'https://static.wikia.nocookie.net/32df47c8-2c98-45f8-b2f5-fe1517b52a9f', '#cards');
 console.log(song._cardTemplate);
 for (let i = 0; i < 5; ++i){
 elements.prepend(song.getTemplate());}
+
+// function enableValidation() {
+//   const formList = Array.from(document.querySelectorAll('.popup__container'));
+//   formList.forEach((formElement) => {
+//     const formValidator = new FormValidator(formElement);
+//     formValidator.enableValidation();
+//   });
+// }
+
+
+// enableValidation();
