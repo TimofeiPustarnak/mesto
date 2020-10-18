@@ -30,7 +30,13 @@ import FormValidator from './validation.js';
   });
 popupFieldName.setAttribute('value', `${profileTitle.textContent}`);
 popupFieldDescription.setAttribute('value', `${profileSubitle.textContent}`);
-
+const validationSelectors =
+{
+  fieldClass: '.popup__field',
+  buttonClass: '.popup__submit-button', 
+  buttonInactiveClass: 'popup__submit-button_inactive', 
+  errorClass: 'popup__field_type_error'
+}
 const initialCards = [
   {
       name: 'Архыз',
@@ -121,7 +127,7 @@ elements.prepend(song.getTemplate());}
 function enableValidation() {
   const formList = Array.from(document.querySelectorAll('.popup__container'));
   formList.forEach((formElement) => {
-    const formValidator = new FormValidator(formElement);
+    const formValidator = new FormValidator(validationSelectors, formElement);
     formValidator.enableValidation();
   });
 }

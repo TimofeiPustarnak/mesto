@@ -2,6 +2,9 @@ export default class FormValidator {
   constructor(data, formElement) {
     this._formElement = formElement;
     this._fieldClass = data.fieldClass;
+    this._buttonClass = data.buttonClass;
+    this._buttonInactiveClass = data.buttonInactiveClass;
+    this._errorClass = data.errorClass;
   }
 
   enableValidation() {
@@ -15,8 +18,8 @@ export default class FormValidator {
   }
 
   _setEventListeners() {
-    this._inputList = Array.from(this._formElement.querySelectorAll('.popup__field'));
-    this._buttonElement = this._formElement.querySelector('.popup__submit-button');
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._fieldClass));
+    this._buttonElement = this._formElement.querySelector(this._buttonClass);
     this._toggleButtonState();
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
@@ -28,10 +31,10 @@ export default class FormValidator {
 
   _toggleButtonState(){
     if (this._hasInvalidInput(this._inputList)) {
-      this._buttonElement.classList.add('popup__submit-button_inactive');
+      this._buttonElement.classList.add(this._buttonInactiveClass);
       this._buttonElement.setAttribute('disabled', true);
     } else {
-      this._buttonElement.classList.remove('popup__submit-button_inactive');
+      this._buttonElement.classList.remove(this._buttonInactiveClass);
       this._buttonElement.removeAttribute('disabled');
     }
   }
@@ -53,12 +56,12 @@ export default class FormValidator {
   _showInputError(inputElement) {
     this._errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
     this._errorElement.textContent = inputElement.validationMessage;
-    inputElement.classList.add('popup__field_type_error');
+    inputElement.classList.add(this._errorClass);
   }
   
   _hideInputError(inputElement) {
     this._errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
     this._errorElement.textContent = '';
-    inputElement.classList.remove('popup__field_type_error');
+    inputElement.classList.remove(this._errorClass);
   }
 }
