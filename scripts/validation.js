@@ -1,4 +1,4 @@
-export default class FormValidator {
+export class FormValidator {
   constructor(data, formElement) {
     this._formElement = formElement;
     this._fieldClass = data.fieldClass;
@@ -66,4 +66,8 @@ export default class FormValidator {
     this._errorElement.textContent = '';
     inputElement.classList.remove(this._errorClass);
   }
+}
+
+export function checkFieldsValid(fieldsList) {
+  return !fieldsList.some(elem => elem.validity.valid == false);
 }

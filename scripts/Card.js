@@ -33,6 +33,6 @@ export default class Card {
   }
   getTemplate() {
     this._createCard();
-    return(this._cardTemplate);
+    return this._cardTemplate;
   }
 }

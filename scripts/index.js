@@ -19,17 +19,15 @@ const popupCardFieldLink = popupCard.querySelector('.popup__field_type_descripti
 const popupImage = page.querySelector('#popup-image');
 const imageInPopup = popupImage.querySelector('.popup__image');
 const popupImageTitle= popupImage.querySelector('.popup__image-title');
-const popupCloseButton= popupImage.querySelector('.popup__close-button');
 const formList = Array.from(document.querySelectorAll('.popup'));
 const popupPersonFields = Array.from(popupContainer.querySelectorAll('.popup__field'));
 const PopupCardFields = Array.from(popupCardContainer.querySelectorAll('.popup__field'));
 import Card from './Card.js';
-import FormValidator from './validation.js';
+import {FormValidator, checkFieldsValid} from './validation.js';
   formList.forEach((formElement) => {
     formElement.addEventListener('click', closePopup);
   });
-popupFieldName.setAttribute('value', `${profileTitle.textContent}`);
-popupFieldDescription.setAttribute('value', `${profileSubitle.textContent}`);
+
 const validationSelectors =
 {
   fieldClass: '.popup__field',
@@ -65,14 +63,20 @@ const initialCards = [
 ];
 
 function renderCards() {
-  initialCards.reverse().forEach((card, i) => {
-    // createCard (initialCards[i].name, initialCards[i].link);
-    const cardElement = new Card(initialCards[i].name, initialCards[i].link, '#cards');
-    elements.prepend(cardElement.getTemplate());
+  initialCards.reverse().forEach((card) => {
+    prependCard(card.name, card.link);
   });
 }
+
+function prependCard(name, link) {
+  const cardElement = new Card(name, link, '#cards');
+  elements.prepend(cardElement.getTemplate());
+}
+
 function openPopup(popup) {
   document.addEventListener('keydown', closePopup);
+  // при использовании keyup возникает очень неприятная задержка при нажатии, 
+  //лично для меня сайт начинает ощущаться гораздо менее озтывчивым
   popup.classList.add('popup_opened');
 }
 
@@ -92,23 +96,23 @@ function formSubmitHandler(evt) {
   }
 }
 
-function checkFieldsValid(fieldsList) {
-  return !fieldsList.some(elem => elem.validity.valid == false);
-}
+
 
 function formCardSubmitHandler(evt) {
   if (checkFieldsValid(PopupCardFields)) {
     evt.preventDefault();
-    // createCard(popupCardFieldTile.value, popupCardFieldLink.value);
-    const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards');
-    elements.prepend(cardElement.getTemplate());
+    prependCard(popupCardFieldTile.value, popupCardFieldLink.value);
     popupFieldName.value = profileTitle.textContent;
     popupFieldDescription.value = profileSubitle.textContent;
     closePopup(evt);
   }
 }
 
-editButton.addEventListener('click', () => openPopup(popup));
+editButton.addEventListener('click', () => {
+  popupFieldName.setAttribute('value', `${profileTitle.textContent}`);
+  popupFieldDescription.setAttribute('value', `${profileSubitle.textContent}`);
+  openPopup(popup)
+});
 // closeButton.addEventListener('click', closePopup);
 popupContainer.addEventListener('submit', formSubmitHandler);
 profileAddButton.addEventListener('click', () => openPopup(popupCard));
@@ -118,12 +122,6 @@ popupCardContainer.addEventListener('submit', formCardSubmitHandler);
 renderCards();
 export {openPopup, popupImage, imageInPopup, popupImageTitle};
 
-
-const song = new Card('big flop', 'https://static.wikia.nocookie.net/32df47c8-2c98-45f8-b2f5-fe1517b52a9f', '#cards');
-console.log(song._cardTemplate);
-for (let i = 0; i < 5; ++i){
-elements.prepend(song.getTemplate());}
-
 function enableValidation() {
   const formList = Array.from(document.querySelectorAll('.popup__container'));
   formList.forEach((formElement) => {
@@ -131,6 +129,5 @@ function enableValidation() {
     formValidator.enableValidation();
   });
 }
-
 
 enableValidation();
