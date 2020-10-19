@@ -25,7 +25,6 @@ export default class Card {
     });
 
     this._cardImage.addEventListener('click', function () {
-      console.log(('b' + 'a' + + 'a' +'a').toLowerCase());
       openPopup(popupImage);
       imageInPopup.src = link;
       imageInPopup.alt = text;
