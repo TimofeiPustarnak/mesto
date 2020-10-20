@@ -3,7 +3,6 @@ const profile = page.querySelector('.profile');
 const popup = page.querySelector('#popup-person');
 const popupCard = page.querySelector('#popup-card');
 const editButton = profile.querySelector('.profile__edit-button');
-const closeButton = popup.querySelector('.popup__close-button');
 const profileTitle = profile.querySelector('.profile__title');
 const profileSubitle = profile.querySelector('.profile__subtitle');
 const popupFieldName = popup.querySelector('.popup__field_type_name');
@@ -11,9 +10,7 @@ const popupFieldDescription = popup.querySelector('.popup__field_type_descriptio
 const popupContainer = popup.querySelector('.popup__container');
 const elements = page.querySelector('.elements');
 const profileAddButton = profile.querySelector('.profile__add-button');
-const popupCardCloseButton = popupCard.querySelector('.popup__close-button');
 const popupCardContainer = popupCard.querySelector('.popup__container');
-const cardsTemplate = elements.querySelector('#cards').content;
 const popupCardFieldTile = popupCard.querySelector('.popup__field_type_name');
 const popupCardFieldLink = popupCard.querySelector('.popup__field_type_description');
 const popupImage = page.querySelector('#popup-image');
@@ -75,8 +72,6 @@ function prependCard(name, link) {
 
 function openPopup(popup) {
   document.addEventListener('keydown', closePopup);
-  // при использовании keyup возникает очень неприятная задержка при нажатии, 
-  //лично для меня сайт начинает ощущаться гораздо менее озтывчивым
   popup.classList.add('popup_opened');
 }
 
@@ -113,12 +108,9 @@ editButton.addEventListener('click', () => {
   popupFieldDescription.setAttribute('value', `${profileSubitle.textContent}`);
   openPopup(popup)
 });
-// closeButton.addEventListener('click', closePopup);
 popupContainer.addEventListener('submit', formSubmitHandler);
 profileAddButton.addEventListener('click', () => openPopup(popupCard));
-// popupCardCloseButton.addEventListener('click', closePopup);
 popupCardContainer.addEventListener('submit', formCardSubmitHandler); 
-// popupCloseButton.addEventListener('click', closePopup);
 renderCards();
 export {openPopup, popupImage, imageInPopup, popupImageTitle};
 
