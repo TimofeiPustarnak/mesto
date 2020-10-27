@@ -19,8 +19,8 @@ const popupImageTitle= popupImage.querySelector('.popup__image-title');
 const formList = Array.from(document.querySelectorAll('.popup'));
 const popupPersonFields = Array.from(popupContainer.querySelectorAll('.popup__field'));
 const PopupCardFields = Array.from(popupCardContainer.querySelectorAll('.popup__field'));
-import Card from './Card.js';
-import {FormValidator, checkFieldsValid} from './validation.js';
+import Card from '../components/Card.js';
+import {FormValidator, checkFieldsValid} from '../components/validation.js';
   formList.forEach((formElement) => {
     formElement.addEventListener('click', closePopup);
   });

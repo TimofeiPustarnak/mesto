@@ -1,0 +1,19 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "HTML5, CSS3, JS(ES6), Использована методология БЭМ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimofeiPustarnak/mesto.git"
+  },
+  "author": "Timofei Pustarnak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TimofeiPustarnak/mesto/issues"
+  },
+  "homepage": "https://github.com/TimofeiPustarnak/mesto#readme"
+}
