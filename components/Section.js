@@ -6,10 +6,10 @@ export default class Section {
   }
   renderItems() {
     this._items.reverse().forEach(element => {
-      this.addItem(this._renderer(element));
+      this.addItem(element);
     });
   }
   addItem(element) {
-    this._element.prepend(element);
+    this._element.prepend(this._renderer(element));
   }
 } 

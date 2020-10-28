@@ -105,7 +105,8 @@ function formSubmitHandler(evt) {
 function formCardSubmitHandler(evt) {
   if (checkFieldsValid(PopupCardFields)) {
     evt.preventDefault();
-    prependCard(popupCardFieldTile.value, popupCardFieldLink.value);
+    const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards');
+    elements.prepend(cardElement.getTemplate());
     popupFieldName.value = profileTitle.textContent;
     popupFieldDescription.value = profileSubitle.textContent;
     closePopup(evt);
@@ -120,7 +121,6 @@ editButton.addEventListener('click', () => {
 popupContainer.addEventListener('submit', formSubmitHandler);
 profileAddButton.addEventListener('click', () => openPopup(popupCard));
 popupCardContainer.addEventListener('submit', formCardSubmitHandler); 
-renderCards();
 export {openPopup, popupImage, imageInPopup, popupImageTitle};
 
 function enableValidation() {
