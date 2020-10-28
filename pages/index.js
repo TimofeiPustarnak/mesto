@@ -21,6 +21,8 @@ const popupPersonFields = Array.from(popupContainer.querySelectorAll('.popup__fi
 const PopupCardFields = Array.from(popupCardContainer.querySelectorAll('.popup__field'));
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
+import Popup from '../components/Popup.js';
+
 
 import {FormValidator, checkFieldsValid} from '../components/validation.js';
   formList.forEach((formElement) => {
@@ -61,16 +63,6 @@ const initialCards = [
   }
 ];
 
-// function renderCards() {
-//   initialCards.reverse().forEach((card) => {
-//     prependCard(card.name, card.link);
-//   });
-// }
-
-// function prependCard(name, link) {
-//   const cardElement = new Card(name, link, '#cards');
-//   elements.prepend(cardElement.getTemplate());
-// }
 const section = new Section({
   items: initialCards, 
   renderer: (item) => {
@@ -78,10 +70,14 @@ const section = new Section({
   return (cardElement.getTemplate());
 }}, '.elements');
 section.renderItems();
+const popupPerson = new Popup('popup');
+
 
 function openPopup(popup) {
   document.addEventListener('keydown', closePopup);
   popup.classList.add('popup_opened');
+  if (popup.id == 'popup-person')
+  console.log(1);
 }
 
 function closePopup(evt) {
@@ -116,7 +112,7 @@ function formCardSubmitHandler(evt) {
 editButton.addEventListener('click', () => {
   popupFieldName.setAttribute('value', `${profileTitle.textContent}`);
   popupFieldDescription.setAttribute('value', `${profileSubitle.textContent}`);
-  openPopup(popup)
+  popupPerson.open();
 });
 popupContainer.addEventListener('submit', formSubmitHandler);
 profileAddButton.addEventListener('click', () => openPopup(popupCard));
