@@ -20,6 +20,8 @@ const formList = Array.from(document.querySelectorAll('.popup'));
 const popupPersonFields = Array.from(popupContainer.querySelectorAll('.popup__field'));
 const PopupCardFields = Array.from(popupCardContainer.querySelectorAll('.popup__field'));
 import Card from '../components/Card.js';
+import Section from '../components/Section.js';
+
 import {FormValidator, checkFieldsValid} from '../components/validation.js';
   formList.forEach((formElement) => {
     formElement.addEventListener('click', closePopup);
@@ -59,16 +61,23 @@ const initialCards = [
   }
 ];
 
-function renderCards() {
-  initialCards.reverse().forEach((card) => {
-    prependCard(card.name, card.link);
-  });
-}
+// function renderCards() {
+//   initialCards.reverse().forEach((card) => {
+//     prependCard(card.name, card.link);
+//   });
+// }
 
-function prependCard(name, link) {
-  const cardElement = new Card(name, link, '#cards');
-  elements.prepend(cardElement.getTemplate());
-}
+// function prependCard(name, link) {
+//   const cardElement = new Card(name, link, '#cards');
+//   elements.prepend(cardElement.getTemplate());
+// }
+const section = new Section({
+  items: initialCards, 
+  renderer: (item) => {
+  const cardElement = new Card(item.name, item.link, '#cards');
+  return (cardElement.getTemplate());
+}}, '.elements');
+section.renderItems();
 
 function openPopup(popup) {
   document.addEventListener('keydown', closePopup);
