@@ -1,4 +1,3 @@
-import {openPopup, popupImage, imageInPopup, popupImageTitle } from '../pages/index.js';
 export default class Card {
   constructor(text, link, template, popupWithImage) {
     this._text = text;
