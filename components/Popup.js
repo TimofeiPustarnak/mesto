@@ -5,15 +5,15 @@ export default class Popup {
   }
   open() {
     this.setEventListeners();
-    this._popup.classList.add(`${this._selector}_opened`);
+    this._popup.classList.add(`popup_opened`);
   }
   close() {
-    document.querySelector(`.${this._selector}_opened`).classList.remove(`${this._selector}_opened`);
+    document.querySelector(`.popup_opened`).classList.remove(`popup_opened`);
     document.removeEventListener('keydown', this._handleEscCloseBind);
   }
   _handleEscClose(evt) {
     if (evt.key == 'Escape' || evt.type == 'submit' || evt.target.classList.contains("popup") || evt.target.classList.contains("popup__close-image"))
-    this.closePopup();
+    this.close();
   }
   setEventListeners() {
     this._handleEscCloseBind = this._handleEscClose.bind(this);

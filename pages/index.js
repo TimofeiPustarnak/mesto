@@ -22,12 +22,15 @@ const PopupCardFields = Array.from(popupCardContainer.querySelectorAll('.popup__
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
-
-
+import PopupWithImage from '../components/PopupWithImage.js';
 import {FormValidator, checkFieldsValid} from '../components/validation.js';
   formList.forEach((formElement) => {
     formElement.addEventListener('click', closePopup);
   });
+
+const popupWithImage = new PopupWithImage('popupImage', {popupImage, imageInPopup, popupImageTitle});
+console.log(popupWithImage);
+console.log(popupWithImage.open);
 
 const validationSelectors =
 {
@@ -66,12 +69,11 @@ const initialCards = [
 const section = new Section({
   items: initialCards, 
   renderer: (item) => {
-  const cardElement = new Card(item.name, item.link, '#cards');
+  const cardElement = new Card(item.name, item.link, '#cards', popupWithImage);
   return (cardElement.getTemplate());
 }}, '.elements');
 section.renderItems();
 const popupPerson = new Popup('popup');
-
 
 function openPopup(popup) {
   document.addEventListener('keydown', closePopup);
@@ -79,11 +81,11 @@ function openPopup(popup) {
   if (popup.id == 'popup-person')
   console.log(1);
 }
-
 function closePopup(evt) {
   if (evt.key == 'Escape' || evt.type == 'submit' || evt.target.classList.contains("popup") || evt.target.classList.contains("popup__close-image")) {
     page.querySelector('.popup_opened').classList.remove('popup_opened');
     document.removeEventListener('keydown', closePopup);
+    console.log(true);
   }
 }
 
@@ -101,7 +103,7 @@ function formSubmitHandler(evt) {
 function formCardSubmitHandler(evt) {
   if (checkFieldsValid(PopupCardFields)) {
     evt.preventDefault();
-    const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards');
+    const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards', popupWithImage);
     elements.prepend(cardElement.getTemplate());
     popupFieldName.value = profileTitle.textContent;
     popupFieldDescription.value = profileSubitle.textContent;
@@ -117,7 +119,7 @@ editButton.addEventListener('click', () => {
 popupContainer.addEventListener('submit', formSubmitHandler);
 profileAddButton.addEventListener('click', () => openPopup(popupCard));
 popupCardContainer.addEventListener('submit', formCardSubmitHandler); 
-export {openPopup, popupImage, imageInPopup, popupImageTitle};
+export {openPopup, popupImage, imageInPopup, popupImageTitle, Popup};
 
 function enableValidation() {
   const formList = Array.from(document.querySelectorAll('.popup__container'));

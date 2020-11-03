@@ -1,10 +1,11 @@
 import {openPopup, popupImage, imageInPopup, popupImageTitle } from '../pages/index.js';
 export default class Card {
-  constructor(text, link, template) {
+  constructor(text, link, template, popupWithImage) {
     this._text = text;
     this._link = link;
     this._template = template;
     this._cardsTemplate = document.querySelector(this._template).content;
+    this._popupWithImage = popupWithImage;
   }
 
   _createCard() {
@@ -24,11 +25,13 @@ export default class Card {
       evt.target.closest('.elements__element').remove();
     });
 
-    this._cardImage.addEventListener('click', function () {
-      openPopup(popupImage);
-      imageInPopup.src = link;
-      imageInPopup.alt = text;
-      popupImageTitle.textContent = text;
+    this._cardImage.addEventListener('click', () => {
+      // openPopup(popupImage);
+      // imageInPopup.src = link;
+      // imageInPopup.alt = text;
+      // popupImageTitle.textContent = text;
+      console.log(this._popupWithImage);
+      this._popupWithImage.open(link, text);
     });
   }
   getTemplate() {
