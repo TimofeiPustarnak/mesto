@@ -23,14 +23,26 @@ import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
 import {FormValidator, checkFieldsValid} from '../components/validation.js';
   formList.forEach((formElement) => {
     formElement.addEventListener('click', closePopup);
   });
 
+//const popupPerson = new PopupWithForm('popupPerson');
+const popupAddCard = new PopupWithForm('popupAddCard', {
+  if (this._checkFieldsValid(this._popupCardFields)) {
+    evt.preventDefault();
+    const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards', popupWithImage);
+    elements.prepend(cardElement.getTemplate());
+    popupFieldName.value = profileTitle.textContent;
+    popupFieldDescription.value = profileSubitle.textContent;
+    closePopup(evt);
+  }
+});
+console.log(popupAddCard);
+console.log(popupPerson);
 const popupWithImage = new PopupWithImage('popupImage', {popupImage, imageInPopup, popupImageTitle});
-console.log(popupWithImage);
-console.log(popupWithImage.open);
 
 const validationSelectors =
 {
@@ -73,7 +85,6 @@ const section = new Section({
   return (cardElement.getTemplate());
 }}, '.elements');
 section.renderItems();
-const popupPerson = new Popup('popup');
 
 function openPopup(popup) {
   document.addEventListener('keydown', closePopup);
