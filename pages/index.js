@@ -29,19 +29,21 @@ import {FormValidator, checkFieldsValid} from '../components/validation.js';
     formElement.addEventListener('click', closePopup);
   });
 
-//const popupPerson = new PopupWithForm('popupPerson');
-const popupAddCard = new PopupWithForm('popupAddCard', {
-  if (this._checkFieldsValid(this._popupCardFields)) {
-    evt.preventDefault();
-    const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards', popupWithImage);
-    elements.prepend(cardElement.getTemplate());
-    popupFieldName.value = profileTitle.textContent;
-    popupFieldDescription.value = profileSubitle.textContent;
-    closePopup(evt);
-  }
-});
-console.log(popupAddCard);
-console.log(popupPerson);
+const a = Array.from(document.querySelectorAll('input'));
+  console.log(a[5].value);
+
+
+const popupPerson = new PopupWithForm('popupPerson');
+// const popupAddCard = new PopupWithForm('popupAddCard', {
+//   if (this._checkFieldsValid(this._popupCardFields)) {
+//     evt.preventDefault();
+//     const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards', popupWithImage);
+//     elements.prepend(cardElement.getTemplate());
+//     popupFieldName.value = profileTitle.textContent;
+//     popupFieldDescription.value = profileSubitle.textContent;
+//     closePopup(evt);
+//   }
+// });
 const popupWithImage = new PopupWithImage('popupImage', {popupImage, imageInPopup, popupImageTitle});
 
 const validationSelectors =
@@ -139,5 +141,7 @@ function enableValidation() {
     formValidator.enableValidation();
   });
 }
+
+
 
 enableValidation();

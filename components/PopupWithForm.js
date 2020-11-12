@@ -5,5 +5,9 @@ export default class PopupWithForm extends Popup {
     super(selector);
     this._checkFieldsValid = checkFieldsValid;
     this._popupCardFields = Array.from(this._popup.querySelectorAll('.popup__field'));
+    
+  }
+  _getInputValues() {
+    return Array.from(this._popup.querySelectorAll('input').values);
   }
 }
