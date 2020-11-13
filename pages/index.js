@@ -20,6 +20,10 @@ import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import {FormValidator} from '../components/validation.js';
+import UserInfo from '../components/UserInfo.js';
+
+const userInfo = new UserInfo({name: '.profile__title', description: '.profile__subtitle'});
+console.log(userInfo.getUserInfo());
 const popupPerson = new PopupWithForm('popupPerson', () => {
   profileTitle.textContent = popupFieldName.value;
   profileSubitle.textContent = popupFieldDescription.value;
