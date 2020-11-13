@@ -29,7 +29,6 @@ export default class Card {
       // imageInPopup.src = link;
       // imageInPopup.alt = text;
       // popupImageTitle.textContent = text;
-      console.log(this._popupWithImage);
       this._popupWithImage.open(link, text);
     });
   }
