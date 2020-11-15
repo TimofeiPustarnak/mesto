@@ -1,4 +1,4 @@
-import {Popup} from '../pages/index.js';
+import {Popup} from '../index.js';
 export default class PopupWithImage extends Popup {
   constructor(selector,{imageInPopup, popupImageTitle}) {
     super(selector);

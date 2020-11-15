@@ -14,12 +14,12 @@ const popupCardFieldLink = popupCard.querySelector('.popup__field_type_descripti
 const popupImage = page.querySelector('#popup-image');
 const imageInPopup = popupImage.querySelector('.popup__image');
 const popupImageTitle= popupImage.querySelector('.popup__image-title');
-import Card from '../components/Card.js';
-import Section from '../components/Section.js';
-import Popup from '../components/Popup.js';
-import PopupWithImage from '../components/PopupWithImage.js';
-import PopupWithForm from '../components/PopupWithForm.js';
-import {FormValidator} from '../components/validation.js';
+import Card from './components/Card.js';
+import Section from './components/Section.js';
+import Popup from './components/Popup.js';
+import PopupWithImage from './components/PopupWithImage.js';
+import PopupWithForm from './components/PopupWithForm.js';
+import {FormValidator} from './components/validation.js';
 
 const popupPerson = new PopupWithForm('popupPerson', () => {
   profileTitle.textContent = popupFieldName.value;
