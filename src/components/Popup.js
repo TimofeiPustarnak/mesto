@@ -30,3 +30,4 @@ export default class Popup {
     document.addEventListener('keydown', this._handleEscCloseBind);
   }
 }
+export {Popup};

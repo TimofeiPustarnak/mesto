@@ -1,5 +1,5 @@
-import {Popup} from '../index.js';
-import {checkFieldsValid} from '../components/validation.js';
+import {Popup} from '../components/Popup.js';
+import {checkFieldsValid} from './FormValidator.js';
 export default class PopupWithForm extends Popup {
   constructor (selector, formSubmit) {
     super(selector);
@@ -7,11 +7,11 @@ export default class PopupWithForm extends Popup {
     this._popupCardFields = Array.from(this._popup.querySelectorAll('.popup__field'));
     
   }
-  _getInputValues() {
-    return this._getInputsWithoutButtons().map((input) => {
-      return input.value;
-    });;
-  }
+  // _getInputValues() {
+  //   return this._getInputsWithoutButtons().map((input) => {
+  //     return input.value;
+  //   });;
+  // }
 
   _getInputsWithoutButtons() {
     return Array.from(this._popup.querySelectorAll('input')).filter((input) => {
@@ -20,7 +20,6 @@ export default class PopupWithForm extends Popup {
   }
 
   _submitHandler(evt) {
-    if (checkFieldsValid(this._popupCardFields))
       this._formSubmit();
       this.close(evt);
     };

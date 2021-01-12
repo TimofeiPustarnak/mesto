@@ -20,7 +20,7 @@ import Section from './components/Section.js';
 import Popup from './components/Popup.js';
 import PopupWithImage from './components/PopupWithImage.js';
 import PopupWithForm from './components/PopupWithForm.js';
-import {FormValidator} from './components/validation.js';
+import {FormValidator} from './components/FormValidator.js';
 
 const popupPerson = new PopupWithForm('popupPerson', () => {
   profileTitle.textContent = popupFieldName.value;
@@ -28,7 +28,6 @@ const popupPerson = new PopupWithForm('popupPerson', () => {
 });
 const popupAddCard = new PopupWithForm('popupAddCard', () => {
     const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards', popupWithImage);
-    cardElement.like();
     elements.prepend(cardElement.getTemplate());
     popupFieldName.value = profileTitle.textContent;
     popupFieldDescription.value = profileSubitle.textContent;
