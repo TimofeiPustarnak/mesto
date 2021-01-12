@@ -1,4 +1,4 @@
-import './pages/index.css';
+// import './pages/index.css';
 const page = document.querySelector('.page');
 const profile = page.querySelector('.profile');
 const popup = page.querySelector('#popup-person');
@@ -28,6 +28,7 @@ const popupPerson = new PopupWithForm('popupPerson', () => {
 });
 const popupAddCard = new PopupWithForm('popupAddCard', () => {
     const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards', popupWithImage);
+    cardElement.like();
     elements.prepend(cardElement.getTemplate());
     popupFieldName.value = profileTitle.textContent;
     popupFieldDescription.value = profileSubitle.textContent;
