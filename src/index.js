@@ -5,7 +5,6 @@ const popupCard = page.querySelector('#popup-card');
 const editButton = profile.querySelector('.profile__edit-button');
 const popupFieldName = popup.querySelector('.popup__field_type_name');
 const popupFieldDescription = popup.querySelector('.popup__field_type_description');
-const elements = page.querySelector('.elements');
 const profileAddButton = profile.querySelector('.profile__add-button');
 const popupCardFieldTile = popupCard.querySelector('.popup__field_type_name');
 const popupCardFieldLink = popupCard.querySelector('.popup__field_type_description');
@@ -53,22 +52,22 @@ import {FormValidator} from './components/FormValidator.js';
 import UserInfo from './components/UserInfo.js';
 
 const userInfo = new UserInfo('.profile__title', '.profile__subtitle');
-
-const popupPerson = new PopupWithForm('popupPerson', () => {
-  userInfo.setUserInfo(popupFieldName.value, popupFieldDescription.value);
-});
-const popupAddCard = new PopupWithForm('popupAddCard', () => {
-    const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards', popupWithImage);
-    elements.prepend(cardElement.getTemplate());
-});
-const popupWithImage = new PopupWithImage('popupImage', {popupImage, imageInPopup, popupImageTitle});
-
 const section = new Section({
   items: initialCards, 
   renderer: (item) => {
   const cardElement = new Card(item.name, item.link, '#cards', popupWithImage);
   return (cardElement.getTemplate());
 }}, '.elements');
+const popupPerson = new PopupWithForm('popupPerson', () => {
+  userInfo.setUserInfo(popupFieldName.value, popupFieldDescription.value);
+});
+const popupAddCard = new PopupWithForm('popupAddCard', () => {
+    const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards', popupWithImage);
+    section.addItem(cardElement.getTemplate());
+});
+const popupWithImage = new PopupWithImage('popupImage', {popupImage, imageInPopup, popupImageTitle});
+
+
 section.renderItems();
 
 editButton.addEventListener('click', function() {
