@@ -1,6 +1,5 @@
 .elements__like {
   border: none;
-  background: none;
   padding: 0;
   transition: all .3s ease;
   cursor: pointer;
