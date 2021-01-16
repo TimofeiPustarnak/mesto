@@ -4,7 +4,7 @@ export default class PopupWithForm extends Popup {
     super(selector);
     this._formSubmit = formSubmit;
     this._popupCardFields = Array.from(this._popup.querySelectorAll('.popup__field'));
-    
+    this._inputs = Array.from(this._popup.querySelectorAll('input'));
   }
   // _getInputValues() {
   //   return this._getInputsWithoutButtons().map((input) => {
@@ -13,7 +13,7 @@ export default class PopupWithForm extends Popup {
   // }
 
   _getInputsWithoutButtons() {
-    return Array.from(this._popup.querySelectorAll('input')).filter((input) => {
+    return this._inputs.filter((input) => {
       return input.getAttribute('type') != 'submit';
     });
   }
