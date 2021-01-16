@@ -1,4 +1,4 @@
-// import './pages/index.css'; 
+import './pages/index.css'; 
 const page = document.querySelector('.page');
 const profile = page.querySelector('.profile');
 const popup = page.querySelector('#popup-person');

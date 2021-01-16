@@ -8,6 +8,7 @@ export default class Popup {
   open() {
     this._popup.classList.add(`popup_opened`);
     document.addEventListener('keydown', this._handleEscCloseBind);
+    //для вебпака index.js должен же прям в src лежать, разве нет?
   }
   close(evt) {
     if (this._closeCheck(evt)){
