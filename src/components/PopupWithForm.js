@@ -1,5 +1,4 @@
-import {Popup} from '../components/Popup.js';
-import {checkFieldsValid} from './FormValidator.js';
+import Popup from '../components/Popup.js';
 export default class PopupWithForm extends Popup {
   constructor (selector, formSubmit) {
     super(selector);
