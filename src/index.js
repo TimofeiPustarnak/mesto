@@ -1,4 +1,4 @@
-import './pages/index.css'; 
+// import './pages/index.css'; 
 const page = document.querySelector('.page');
 const profile = page.querySelector('.profile');
 const popup = page.querySelector('#popup-person');
@@ -62,12 +62,14 @@ const section = new Section({
 const popupPerson = new PopupWithForm('popupPerson', () => {
   userInfo.setUserInfo(popupFieldName.value, popupFieldDescription.value);
 });
+popupPerson.setEventListeners();
 const popupAddCard = new PopupWithForm('popupAddCard', () => {
     const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards', popupWithImage);
     section.addItem(cardElement.getTemplate());
 });
+popupAddCard.setEventListeners();
 const popupWithImage = new PopupWithImage('popupImage', {popupImage, imageInPopup, popupImageTitle});
-
+popupWithImage.setEventListeners();
 
 section.renderItems();
 

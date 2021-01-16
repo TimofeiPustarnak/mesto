@@ -33,7 +33,6 @@ export default class PopupWithForm extends Popup {
   close(evt) {
     super.close(evt);
     if (this._closeCheck(evt)) {
-      this._popup.removeEventListener('submit', this._submitHandlerBind);
       this._getInputsWithoutButtons().forEach(element => {
         element.value = '';
       });
