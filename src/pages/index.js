@@ -1,4 +1,4 @@
-import './pages/index.css'; 
+import './index.css'; 
 const page = document.querySelector('.page');
 const profile = page.querySelector('.profile');
 const popup = page.querySelector('#popup-person');
@@ -45,12 +45,12 @@ const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-import Card from './components/Card.js';
-import Section from './components/Section.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import PopupWithForm from './components/PopupWithForm.js';
-import {FormValidator} from './components/FormValidator.js';
-import UserInfo from './components/UserInfo.js';
+import Card from '../components/Card.js';
+import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import {FormValidator} from '../components/FormValidator.js';
+import UserInfo from '../components/UserInfo.js';
 
 const userInfo = new UserInfo('.profile__title', '.profile__subtitle');
 const section = new Section({
