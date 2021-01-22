@@ -17,6 +17,11 @@ const popupClose = document.querySelector('#popup-close');
 const popupSubmitButton = document.querySelector('.popup__submit-button-close');
 let section;
 
+function cardElementOpenPopup() {
+  popupConfirm.open();
+  popupConfirm.setEventListeners();
+  popupSubmitButton.classList.remove('popup__submit-button_inactive');
+}
 
 fetch('https://mesto.nomoreparties.co/v1/cohort-19/users/me ', {
   headers: {
@@ -39,11 +44,7 @@ fetch('https://mesto.nomoreparties.co/v1/cohort-19/cards', {
     items: data, 
     renderer: (item) => {
     let bool =  item.owner.name == userInfo.getUserInfo().name;
-    const cardElement = new Card(item.name, item.link, '#cards', popupWithImage, item.likes.length, () => {
-      popupConfirm.open();
-      popupConfirm.setEventListeners();
-      popupSubmitButton.classList.remove('popup__submit-button_inactive');
-    }, bool, popupClose);
+    const cardElement = new Card(item.name, item.link, '#cards', popupWithImage, item.likes.length, cardElementOpenPopup, bool, popupClose, item._id);
     return (cardElement.getTemplate());
   }}, '.elements');
   section.renderItems();
@@ -94,12 +95,11 @@ const popupAddCard = new PopupWithForm('popupAddCard', () => {
       link: popupCardFieldLink.value
     })
   })
-    const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards', popupWithImage, 0, () => {
-      popupConfirm.open();
-      popupConfirm.setEventListeners();
-      popupSubmitButton.classList.remove('popup__submit-button_inactive');
-    }, true, popupClose);
+  .then(res => res.json())
+  .then(data => {
+    const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards', popupWithImage, 0, cardElementOpenPopup, true, popupClose, data._id);
     section.addItem(cardElement.getTemplate());
+  })
 });
 popupAddCard.setEventListeners();
 const popupWithImage = new PopupWithImage('popupImage', {popupImage, imageInPopup, popupImageTitle});

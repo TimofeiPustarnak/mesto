@@ -1,5 +1,5 @@
 export default class Card { 
-  constructor(text, link, template, popupWithImage, likesCounter, openPopup, isMy, popupClose) { 
+  constructor(text, link, template, popupWithImage, likesCounter, openPopup, isMy, popupClose, id) { 
     this._text = text; 
     this._link = link; 
     this._template = template; 
@@ -11,6 +11,7 @@ export default class Card {
     this._openPopup = openPopup;
     this._isMy = isMy;
     this._popupClose = popupClose;
+    this._id = id;
   } 
  
   _createCard() {  
@@ -31,7 +32,13 @@ export default class Card {
     this._popupClose.querySelector('.popup__submit-button-close').addEventListener('click', (evt) => {
       evt.preventDefault();
       this._deleteButton.closest('.elements__element').remove(); 
-      this._popupClose.classList.remove(`popup_opened`);;
+      this._popupClose.classList.remove(`popup_opened`);
+      fetch(`https://mesto.nomoreparties.co/v1/cohort-19/cards/${this._id}`, {
+        method: 'DELETE',
+        headers: {
+          authorization: 'e7c816a7-6326-4823-aa23-7ff97d0294f3',
+        }
+      })
     })
   }
 
