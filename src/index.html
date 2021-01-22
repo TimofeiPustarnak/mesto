@@ -85,6 +85,7 @@
         <input type="submit" class="popup__submit-button" name="submit-button" value="Создать">
       </form>
     </div>
+
       <div class="popup popupImage" id="popup-image">   
         <div class="popup__case">
           <img class="popup__image"  src="/" alt="/">
@@ -94,6 +95,17 @@
           <h3 class="popup__image-title"></h3>
         </div>
       </div>
+
+      <div class="popup popupConfirm" id="popup-close">   
+        <form class="popup__container popup__container_small" method="get" name="card-link-&-title" novalidate>
+          <button class="popup__close-button" type="button">
+            <img src="./images/Vector(1).svg" alt="закрыть" class="popup__close-image">
+          </button>
+          <h3 class="popup__title popup__title_popup-close">Вы уверены?</h3>
+          <input type="button" class="popup__submit-button popup__submit-button-close" name="submit-button" value="Да">
+        </form>
+      </div>
+
   </div>
   <script type="module" src="./pages/index.js"></script>
 </body>

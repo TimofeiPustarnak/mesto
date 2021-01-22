@@ -13,22 +13,9 @@ const popupImage = page.querySelector('#popup-image');
 const imageInPopup = popupImage.querySelector('.popup__image');
 const popupImageTitle= popupImage.querySelector('.popup__image-title');
 const profileAvatar = document.querySelector('.profile__avatar');
+const popupClose = document.querySelector('#popup-close');
+const popupSubmitButton = document.querySelector('.popup__submit-button-close');
 let section;
-
-fetch('https://mesto.nomoreparties.co/v1/cohort-19/cards', {
-  headers: {
-    authorization: 'e7c816a7-6326-4823-aa23-7ff97d0294f3'
-  }
-}).then(res => res.json())
-.then(data => {
-  section = new Section({
-    items: data, 
-    renderer: (item) => {
-    const cardElement = new Card(item.name, item.link, '#cards', popupWithImage, item.likes.length);
-    return (cardElement.getTemplate());
-  }}, '.elements');
-  section.renderItems();
-});
 
 
 fetch('https://mesto.nomoreparties.co/v1/cohort-19/users/me ', {
@@ -40,6 +27,26 @@ fetch('https://mesto.nomoreparties.co/v1/cohort-19/users/me ', {
 .then(data => {
   userInfo.setUserInfo(data.name, data.about);
   profileAvatar.src = data.avatar;
+});
+
+fetch('https://mesto.nomoreparties.co/v1/cohort-19/cards', {
+  headers: {
+    authorization: 'e7c816a7-6326-4823-aa23-7ff97d0294f3'
+  }
+}).then(res => res.json())
+.then(data => {
+  section = new Section({
+    items: data, 
+    renderer: (item) => {
+    let bool =  item.owner.name == userInfo.getUserInfo().name;
+    const cardElement = new Card(item.name, item.link, '#cards', popupWithImage, item.likes.length, () => {
+      popupConfirm.open();
+      popupConfirm.setEventListeners();
+      popupSubmitButton.classList.remove('popup__submit-button_inactive');
+    }, bool, popupClose);
+    return (cardElement.getTemplate());
+  }}, '.elements');
+  section.renderItems();
 });
 const validationSelectors =
 {
@@ -54,9 +61,11 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import {FormValidator} from '../components/FormValidator.js';
 import UserInfo from '../components/UserInfo.js';
+import PopupConfirm from '../components/PopupConfirm.js'; 
 
 const userInfo = new UserInfo('.profile__title', '.profile__subtitle');
 
+const popupConfirm = new PopupConfirm('popupConfirm');
 
 const popupPerson = new PopupWithForm('popupPerson', () => {
   fetch('https://mesto.nomoreparties.co/v1/cohort-19/users/me', {
@@ -85,7 +94,11 @@ const popupAddCard = new PopupWithForm('popupAddCard', () => {
       link: popupCardFieldLink.value
     })
   })
-    const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards', popupWithImage, 0);
+    const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards', popupWithImage, 0, () => {
+      popupConfirm.open();
+      popupConfirm.setEventListeners();
+      popupSubmitButton.classList.remove('popup__submit-button_inactive');
+    }, true, popupClose);
     section.addItem(cardElement.getTemplate());
 });
 popupAddCard.setEventListeners();
@@ -108,10 +121,3 @@ function enableValidation() {
   });
 }
 enableValidation();
-
-
-
-
-
-
-

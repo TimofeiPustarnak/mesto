@@ -1,5 +1,5 @@
 export default class Card { 
-  constructor(text, link, template, popupWithImage, likesCounter) { 
+  constructor(text, link, template, popupWithImage, likesCounter, openPopup, isMy, popupClose) { 
     this._text = text; 
     this._link = link; 
     this._template = template; 
@@ -7,7 +7,10 @@ export default class Card {
     this._popupWithImage = popupWithImage; 
     this._likeButton = this._cardTemplate.querySelector('.elements__like');
     this._deleteButton = this._cardTemplate.querySelector('.elements__delete');
-    this._likesCounter =likesCounter;
+    this._likesCounter = likesCounter;
+    this._openPopup = openPopup;
+    this._isMy = isMy;
+    this._popupClose = popupClose;
   } 
  
   _createCard() {  
@@ -24,17 +27,26 @@ export default class Card {
   }
 
   _delete() {
-    this._deleteButton.closest('.elements__element').remove(); 
+    this._openPopup();
+    this._popupClose.querySelector('.popup__submit-button-close').addEventListener('click', (evt) => {
+      evt.preventDefault();
+      this._deleteButton.closest('.elements__element').remove(); 
+      this._popupClose.classList.remove(`popup_opened`);;
+    })
   }
 
   _renderCard (link, text) { 
-    this._likeBind = this._like.bind(this);
-    this._deleteBind = this._delete.bind(this);
-    this._likeButton.addEventListener('click', this._likeBind); 
-    this._deleteButton.addEventListener('click', this._deleteBind); 
-    this._cardImage.addEventListener('click', () => { 
+      this._likeBind = this._like.bind(this);
+      this._deleteBind = this._delete.bind(this);
+      this._likeButton.addEventListener('click', this._likeBind); 
+      this._cardImage.addEventListener('click', () => { 
       this._popupWithImage.open(link, text); 
-    }); 
+      }); 
+      if (this._isMy) {
+        this._deleteButton.addEventListener('click', this._deleteBind); 
+      }else{
+        this._deleteButton.style.display = 'none';
+      }
   } 
   getTemplate() { 
     this._createCard(); 
