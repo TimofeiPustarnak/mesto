@@ -6,6 +6,7 @@ export default class Card {
     this._cardTemplate = document.querySelector(this._template).content.cloneNode(true);
     this._popupWithImage = popupWithImage; 
     this._likeButton = this._cardTemplate.querySelector('.elements__like');
+    this._likeCounter = this._cardTemplate.querySelector('.elements__like-counter');
     this._deleteButton = this._cardTemplate.querySelector('.elements__delete');
     this._likesCounter = likesCounter;
     this._openPopup = openPopup;
@@ -24,6 +25,28 @@ export default class Card {
   } 
  
   _like() {
+    if(!this._likeButton.classList.contains('elements__like_active')) {
+    fetch(` https://mesto.nomoreparties.co/v1/cohort-19/cards/likes/${this._id}`, {
+        method: 'PUT',
+        headers: {
+          authorization: 'e7c816a7-6326-4823-aa23-7ff97d0294f3',
+        }
+      }).then(res => res.json())
+      .then(data => {
+        this._likeCounter.textContent = data.likes.length;
+      });
+    }else{
+      fetch(` https://mesto.nomoreparties.co/v1/cohort-19/cards/likes/${this._id}`, {
+        method: 'DELETE',
+        headers: {
+          authorization: 'e7c816a7-6326-4823-aa23-7ff97d0294f3',
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        this._likeCounter.textContent = data.likes.length;
+      });
+    }
     this._likeButton.classList.toggle('elements__like_active'); 
   }
 
