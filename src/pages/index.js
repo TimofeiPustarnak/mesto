@@ -12,6 +12,35 @@ const popupCardFieldLink = popupCard.querySelector('.popup__field_type_descripti
 const popupImage = page.querySelector('#popup-image');
 const imageInPopup = popupImage.querySelector('.popup__image');
 const popupImageTitle= popupImage.querySelector('.popup__image-title');
+const profileAvatar = document.querySelector('.profile__avatar');
+let section;
+
+fetch('https://mesto.nomoreparties.co/v1/cohort-19/cards', {
+  headers: {
+    authorization: 'e7c816a7-6326-4823-aa23-7ff97d0294f3'
+  }
+}).then(res => res.json())
+.then(data => {
+  section = new Section({
+    items: data, 
+    renderer: (item) => {
+    const cardElement = new Card(item.name, item.link, '#cards', popupWithImage);
+    return (cardElement.getTemplate());
+  }}, '.elements');
+  section.renderItems();
+});
+
+
+fetch('https://mesto.nomoreparties.co/v1/cohort-19/users/me ', {
+  headers: {
+    authorization: 'e7c816a7-6326-4823-aa23-7ff97d0294f3'
+  }
+}).then(res =>
+  res.json())
+.then(data => {
+  userInfo.setUserInfo(data.name, data.about);
+  profileAvatar.src = data.avatar;
+});
 const validationSelectors =
 {
   fieldClass: '.popup__field',
@@ -19,32 +48,6 @@ const validationSelectors =
   buttonInactiveClass: 'popup__submit-button_inactive', 
   errorClass: 'popup__field_type_error'
 }
-const initialCards = [
-  {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -53,13 +56,20 @@ import {FormValidator} from '../components/FormValidator.js';
 import UserInfo from '../components/UserInfo.js';
 
 const userInfo = new UserInfo('.profile__title', '.profile__subtitle');
-const section = new Section({
-  items: initialCards, 
-  renderer: (item) => {
-  const cardElement = new Card(item.name, item.link, '#cards', popupWithImage);
-  return (cardElement.getTemplate());
-}}, '.elements');
+
+
 const popupPerson = new PopupWithForm('popupPerson', () => {
+  fetch('https://mesto.nomoreparties.co/v1/cohort-19/users/me', {
+  method: 'PATCH',
+  headers: {
+    authorization: 'e7c816a7-6326-4823-aa23-7ff97d0294f3',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: popupFieldName.value,
+    about: popupFieldDescription.value
+  })
+}); 
   userInfo.setUserInfo(popupFieldName.value, popupFieldDescription.value);
 });
 popupPerson.setEventListeners();
@@ -71,7 +81,6 @@ popupAddCard.setEventListeners();
 const popupWithImage = new PopupWithImage('popupImage', {popupImage, imageInPopup, popupImageTitle});
 popupWithImage.setEventListeners();
 
-section.renderItems();
 
 editButton.addEventListener('click', function() {
   popupPerson.open();
@@ -88,3 +97,10 @@ function enableValidation() {
   });
 }
 enableValidation();
+
+
+
+
+
+
+
