@@ -24,7 +24,7 @@ fetch('https://mesto.nomoreparties.co/v1/cohort-19/cards', {
   section = new Section({
     items: data, 
     renderer: (item) => {
-    const cardElement = new Card(item.name, item.link, '#cards', popupWithImage);
+    const cardElement = new Card(item.name, item.link, '#cards', popupWithImage, item.likes.length);
     return (cardElement.getTemplate());
   }}, '.elements');
   section.renderItems();
@@ -85,7 +85,7 @@ const popupAddCard = new PopupWithForm('popupAddCard', () => {
       link: popupCardFieldLink.value
     })
   })
-    const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards', popupWithImage);
+    const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards', popupWithImage, 0);
     section.addItem(cardElement.getTemplate());
 });
 popupAddCard.setEventListeners();

@@ -1,5 +1,5 @@
 export default class Card { 
-  constructor(text, link, template, popupWithImage) { 
+  constructor(text, link, template, popupWithImage, likesCounter) { 
     this._text = text; 
     this._link = link; 
     this._template = template; 
@@ -7,10 +7,12 @@ export default class Card {
     this._popupWithImage = popupWithImage; 
     this._likeButton = this._cardTemplate.querySelector('.elements__like');
     this._deleteButton = this._cardTemplate.querySelector('.elements__delete');
+    this._likesCounter =likesCounter;
   } 
  
   _createCard() {  
       this._cardTemplate.querySelector('.elements__title').textContent = this._text; 
+      this._cardTemplate.querySelector('.elements__like-counter').textContent = this._likesCounter;
       this._cardImage = this._cardTemplate.querySelector('.elements__image'); 
       this._cardImage.src = this._link; 
       this._cardImage.alt = this._text; 
