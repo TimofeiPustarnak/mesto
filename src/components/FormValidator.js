@@ -8,7 +8,7 @@ export class FormValidator {
   }
 
   enableValidation() {
-    this._formElement.addEventListener('submit', (evt) => {
+    this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._getButtonDisabled();
     });
@@ -16,11 +16,13 @@ export class FormValidator {
   }
 
   _setEventListeners() {
-    this._inputList = Array.from(this._formElement.querySelectorAll(this._fieldClass));
+    this._inputList = Array.from(
+      this._formElement.querySelectorAll(this._fieldClass)
+    );
     this._buttonElement = this._formElement.querySelector(this._buttonClass);
     this._toggleButtonState();
     this._inputList.forEach((inputElement) => {
-      inputElement.addEventListener('input', () => {
+      inputElement.addEventListener("input", () => {
         this._checkInputValidity(inputElement);
         this._toggleButtonState(inputElement);
       });
@@ -29,7 +31,7 @@ export class FormValidator {
 
   _getButtonDisabled() {
     this._buttonElement.classList.add(this._buttonInactiveClass);
-    this._buttonElement.setAttribute('disabled', true);
+    this._buttonElement.setAttribute("disabled", true);
   }
 
   _toggleButtonState() {
@@ -37,14 +39,14 @@ export class FormValidator {
       this._getButtonDisabled();
     } else {
       this._buttonElement.classList.remove(this._buttonInactiveClass);
-      this._buttonElement.removeAttribute('disabled');
+      this._buttonElement.removeAttribute("disabled");
     }
   }
 
   _hasInvalidInput() {
     return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
-    })
+    });
   }
 
   _checkInputValidity(inputElement) {
@@ -56,18 +58,22 @@ export class FormValidator {
   }
 
   _showInputError(inputElement) {
-    this._errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
+    this._errorElement = this._formElement.querySelector(
+      `#${inputElement.id}-error`
+    );
     this._errorElement.textContent = inputElement.validationMessage;
     inputElement.classList.add(this._errorClass);
   }
-  
+
   _hideInputError(inputElement) {
-    this._errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
-    this._errorElement.textContent = '';
+    this._errorElement = this._formElement.querySelector(
+      `#${inputElement.id}-error`
+    );
+    this._errorElement.textContent = "";
     inputElement.classList.remove(this._errorClass);
   }
 }
 
 export function checkFieldsValid(fieldsList) {
-  return !fieldsList.some(elem => elem.validity.valid == false);
+  return !fieldsList.some((elem) => elem.validity.valid == false);
 }
