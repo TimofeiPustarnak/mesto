@@ -57,6 +57,7 @@ export default class Card {
       this._likeCard(this._id, this._baseUrl, this._authorization)
         .then((data) => {
           this._likeCounter.textContent = data.likes.length;
+          this._likeButton.classList.toggle("elements__like_active");
         })
         .catch((err) => {
           console.log(err); // выведем ошибку в консоль
@@ -65,24 +66,32 @@ export default class Card {
       this._unlike(this._id, this._baseUrl, this._authorization)
         .then((data) => {
           this._likeCounter.textContent = data.likes.length;
+          this._likeButton.classList.toggle("elements__like_active");
         })
         .catch((err) => {
           console.log(err); // выведем ошибку в консоль
         });
     }
-    this._likeButton.classList.toggle("elements__like_active");
   }
 
   _delete() {
-    this._openPopup();
     this._popupClose
       .querySelector(".popup__submit-button-close")
-      .addEventListener("click", (evt) => {
-        evt.preventDefault();
-        this._deleteButton.closest(".elements__element").remove();
-        this._popupClose.classList.remove(`popup_opened`);
-        this._deleteCard(this._id, this._baseUrl, this._authorization);
-      });
+      .removeEventListener("click", this._removeCardBind);
+    this._openPopup();
+    this._removeCardBind = this._removeCard.bind(this);
+    this._popupClose
+      .querySelector(".popup__submit-button-close")
+      .addEventListener("click", this._removeCardBind);
+  }
+
+  _removeCard() {
+    this._deleteButton.closest(".elements__element").remove();
+    this._popupClose.classList.remove(`popup_opened`);
+    this._deleteCard(this._id, this._baseUrl, this._authorization);
+    this._popupClose
+      .querySelector(".popup__submit-button-close")
+      .removeEventListener("click", this._removeCardBind);
   }
 
   _renderCard(link, text) {

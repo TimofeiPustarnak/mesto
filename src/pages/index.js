@@ -5,7 +5,6 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import { FormValidator } from "../components/FormValidator.js";
 import UserInfo from "../components/UserInfo.js";
-import PopupConfirm from "../components/PopupConfirm.js";
 import Api from "../components/Api.js";
 const page = document.querySelector(".page");
 const profile = page.querySelector(".profile");
@@ -89,7 +88,11 @@ const userInfo = new UserInfo(
   ".profile__avatar"
 );
 
-const popupConfirm = new PopupConfirm("popupConfirm");
+const popupConfirm = new PopupWithForm(
+  "popupConfirm",
+  () => {},
+  "popup-confirm-button"
+);
 popupConfirm.setEventListeners();
 
 const popupPerson = new PopupWithForm(
@@ -99,11 +102,14 @@ const popupPerson = new PopupWithForm(
       .patchUserInfo(popupFieldName.value, popupFieldDescription.value)
       .then((data) => {
         popupPerson.closeWithoutCheck();
+        userInfo.setUserInfo(data.name, data.about, data.avatar);
       })
       .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
+        console.log(err);
+      })
+      .finally(() => {
+        popupPerson.buttonLoadingReset();
       });
-    userInfo.setUserInfo(popupFieldName.value, popupFieldDescription.value);
   },
   "popup-person-submit-button"
 );
@@ -114,11 +120,14 @@ const popupEditAvatar = new PopupWithForm(
     api
       .editAvatar(popupEditFieldLink.value)
       .then((data) => {
-        avatar.src = data.avatar;
+        userInfo.setUserInfo(data.name, data.about, data.avatar);
         popupEditAvatar.closeWithoutCheck();
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        popupEditAvatar.buttonLoadingReset();
       });
   },
   "popup-edit-avatar-button"
@@ -132,7 +141,6 @@ const popupAddCard = new PopupWithForm(
     api
       .addCard(popupCardFieldTile.value, popupCardFieldLink.value)
       .then((data) => {
-        console.log(data.name);
         const cardElement = new Card(
           data.name,
           data.link,
@@ -149,11 +157,15 @@ const popupAddCard = new PopupWithForm(
           "https://mesto.nomoreparties.co/v1/cohort-19",
           "e7c816a7-6326-4823-aa23-7ff97d0294f3"
         );
+        // так если мы будем создавать cardElement в функции, в нее же все равно придется передать все эти параметры
         section.addItem(cardElement.getTemplate());
         popupAddCard.closeWithoutCheck();
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        popupAddCard.buttonLoadingReset();
       });
   },
   "popup-addCard-button"
@@ -168,11 +180,8 @@ popupWithImage.setEventListeners();
 
 editButton.addEventListener("click", function () {
   popupPerson.open();
-  popupFieldName.setAttribute("value", userInfo.getUserInfo().name);
-  popupFieldDescription.setAttribute(
-    "value",
-    userInfo.getUserInfo().description
-  );
+  popupFieldName.value = userInfo.getUserInfo().name;
+  popupFieldDescription.value = userInfo.getUserInfo().description;
 });
 profileAddButton.addEventListener("click", () => {
   popupAddCard.open();
@@ -187,4 +196,5 @@ function enableValidation() {
     formValidator.enableValidation();
   });
 }
+function createCardElement() {}
 enableValidation();

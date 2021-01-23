@@ -34,14 +34,14 @@ export default class PopupWithForm extends Popup {
     this._popup.addEventListener("submit", this._submitHandlerBind);
   }
 
-  close(evt) {
-    super.close(evt);
-    if (this._closeCheck(evt)) {
-      this._getInputsWithoutButtons().forEach((element) => {
-        element.value = "";
-      });
-    }
-  }
+  // close(evt) {
+  //   super.close(evt);
+  //   if (this._closeCheck(evt)) {
+  //     this._getInputsWithoutButtons().forEach((element) => {
+  //       // element.value = "";
+  //     });
+  //   }
+  // }
 
   closeWithoutCheck() {
     this._popup.classList.remove(`popup_opened`);
@@ -49,6 +49,9 @@ export default class PopupWithForm extends Popup {
     this._getInputsWithoutButtons().forEach((element) => {
       element.value = "";
     });
+  }
+
+  buttonLoadingReset() {
     this._button.value = this._buttonContent;
   }
 }
