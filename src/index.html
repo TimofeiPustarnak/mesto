@@ -8,7 +8,7 @@
     <!-- <meta name="keywords" content=""> -->
     <meta name="author" content="Тимофей Пустарнак">
     <!-- <link rel="shortcut icon" href="./images/kisspng-travel-agent-computer-icons-flight-dipl-ocirc-me-5b27af484e8869.0473470515293274323217.png"> -->
-    <link rel='stylesheet' href="./pages/index.css">
+    <!-- <link rel='stylesheet' href="./pages/index.css"> -->
 </head>
 <body>
   <div class="page">
@@ -17,7 +17,7 @@
     </header>
     
       <section class="profile">
-        <img src="" alt="аватар" class="profile__avatar">
+        <img src="./images/pen.svg" alt="аватар" class="profile__avatar">
         <div class="profile__avatar-edit"></div>
         <div class="profile__info">
           <div class="profile__edit">
@@ -65,7 +65,7 @@
           <input  type="text" class="popup__field popup__field_type_description" id = 'description-input' name="description" placeholder="О себе" required minlength='2' maxlength="200">
           <span class="popup__field-error" id = 'description-input-error'></span>
         </div>
-        <input type="submit" class="popup__submit-button" name="submit-button" value="Сохранить">
+        <input type="submit" class="popup__submit-button" name="submit-button" value="Сохранить" id='popup-person-submit-button'>
       </form>
     </div>
 
@@ -83,7 +83,7 @@
           <input  type="url" class="popup__field popup__field_type_description" id = 'link-input' name="link" placeholder="Ссылка на картинку" required>
           <span class="popup__field-error" id = 'link-input-error'></span>
         </div>
-        <input type="submit" class="popup__submit-button" name="submit-button" value="Создать">
+        <input type="submit" class="popup__submit-button" name="submit-button" value="Создать" id="popup-addCard-button">
       </form>
     </div>
 
@@ -107,7 +107,21 @@
         </form>
       </div>
 
+      <div class="popup popupEditAvatar" id="popup-avatar">   
+        <form class="popup__container" method="get" name="card-link-&-title" novalidate>
+          <button class="popup__close-button" type="button">
+            <img src="./images/Vector(1).svg" alt="закрыть" class="popup__close-image">
+          </button>
+          <h3 class="popup__title">Обновить аватар</h3>
+          <div class="popup__input-wrapper">
+            <input  type="url" class="popup__field popup__field_type_description" id = 'link-input-edit' name="link" placeholder="Ссылка на картинку" required>
+            <span class="popup__field-error" id = 'link-input-edit-error'></span>
+          </div>
+          <input type="submit" class="popup__submit-button" name="submit-button" value="Сохранить" id ='popup-edit-avatar-button'>
+        </form>
+      </div>
+
   </div>
-  <script type="module" src="./pages/index.js"></script>
+  <!-- <script type="module" src="./pages/index.js"></script> -->
 </body>
 </html>

@@ -1,5 +1,5 @@
 export default class Card { 
-  constructor(text, link, template, popupWithImage, likesCounter, openPopup, isMy, popupClose, id) { 
+  constructor(text, link, template, popupWithImage, likesCounter, openPopup, isMy, popupClose, id, likeCard, unlike, deleteCard, baseUrl, authorization) { 
     this._text = text; 
     this._link = link; 
     this._template = template; 
@@ -13,8 +13,14 @@ export default class Card {
     this._isMy = isMy;
     this._popupClose = popupClose;
     this._id = id;
-  } 
- 
+    this._deleteCard = deleteCard;
+    this._unlike = unlike;
+    this._likeCard = likeCard;
+    this._baseUrl = baseUrl;
+    this._authorization = authorization;
+  }  
+   
+
   _createCard() {  
       this._cardTemplate.querySelector('.elements__title').textContent = this._text; 
       this._cardTemplate.querySelector('.elements__like-counter').textContent = this._likesCounter;
@@ -26,26 +32,19 @@ export default class Card {
  
   _like() {
     if(!this._likeButton.classList.contains('elements__like_active')) {
-    fetch(` https://mesto.nomoreparties.co/v1/cohort-19/cards/likes/${this._id}`, {
-        method: 'PUT',
-        headers: {
-          authorization: 'e7c816a7-6326-4823-aa23-7ff97d0294f3',
-        }
-      }).then(res => res.json())
+    this._likeCard(this._id, this._baseUrl, this._authorization)
       .then(data => {
         this._likeCounter.textContent = data.likes.length;
-      });
+      }).catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      });;
     }else{
-      fetch(` https://mesto.nomoreparties.co/v1/cohort-19/cards/likes/${this._id}`, {
-        method: 'DELETE',
-        headers: {
-          authorization: 'e7c816a7-6326-4823-aa23-7ff97d0294f3',
-        }
-      })
-      .then(res => res.json())
+      this._unlike(this._id,this._baseUrl,this._authorization)
       .then(data => {
         this._likeCounter.textContent = data.likes.length;
-      });
+      }).catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      });;
     }
     this._likeButton.classList.toggle('elements__like_active'); 
   }
@@ -56,12 +55,7 @@ export default class Card {
       evt.preventDefault();
       this._deleteButton.closest('.elements__element').remove(); 
       this._popupClose.classList.remove(`popup_opened`);
-      fetch(`https://mesto.nomoreparties.co/v1/cohort-19/cards/${this._id}`, {
-        method: 'DELETE',
-        headers: {
-          authorization: 'e7c816a7-6326-4823-aa23-7ff97d0294f3',
-        }
-      })
+      this._deleteCard(this._id,this._baseUrl,this._authorization);
     })
   }
 
