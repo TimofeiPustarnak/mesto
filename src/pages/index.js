@@ -1,4 +1,4 @@
-import './index.css'; 
+// import './index.css'; 
 const page = document.querySelector('.page');
 const profile = page.querySelector('.profile');
 const popup = page.querySelector('#popup-person');
@@ -13,7 +13,6 @@ const popupEditFieldLink = document.querySelector('#link-input-edit');
 const popupImage = page.querySelector('#popup-image');
 const imageInPopup = popupImage.querySelector('.popup__image');
 const popupImageTitle= popupImage.querySelector('.popup__image-title');
-const profileAvatar = document.querySelector('.profile__avatar');
 const popupClose = document.querySelector('#popup-close');
 const popupSubmitButton = document.querySelector('.popup__submit-button-close');
 const avatar = document.querySelector('.profile__avatar');
@@ -27,14 +26,12 @@ const api = new Api({
 }); 
 function cardElementOpenPopup() {
   popupConfirm.open();
-  popupConfirm.setEventListeners();
   popupSubmitButton.classList.remove('popup__submit-button_inactive');
 }
 
 Promise.all([api.getInitialCards(), api.getUserInfo()])
   .then((data) => {
-    userInfo.setUserInfo(data[1].name, data[1].about);
-    profileAvatar.src = data[1].avatar;
+    userInfo.setUserInfo(data[1].name, data[1].about, data[1].avatar);
     section = new Section({
         items: data[0], 
         renderer: (item) => {
@@ -65,9 +62,10 @@ import PopupConfirm from '../components/PopupConfirm.js';
 import Api from '../components/Api.js'; 
 
 
-const userInfo = new UserInfo('.profile__title', '.profile__subtitle');
+const userInfo = new UserInfo('.profile__title', '.profile__subtitle', '.profile__avatar');
 
 const popupConfirm = new PopupConfirm('popupConfirm');
+popupConfirm.setEventListeners();
 
 const popupPerson = new PopupWithForm('popupPerson', () => {
   api.patchUserInfo(popupFieldName.value, popupFieldDescription.value)
