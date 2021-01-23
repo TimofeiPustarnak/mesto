@@ -97,7 +97,8 @@ const popupAddCard = new PopupWithForm('popupAddCard', () => {
   })
   .then(res => res.json())
   .then(data => {
-    const cardElement = new Card(popupCardFieldTile.value, popupCardFieldLink.value, '#cards', popupWithImage, 0, cardElementOpenPopup, true, popupClose, data._id);
+    console.log(data.name);
+    const cardElement = new Card(data.name, data.link, '#cards', popupWithImage, 0, cardElementOpenPopup, true, popupClose, data._id);
     section.addItem(cardElement.getTemplate());
   })
 });
