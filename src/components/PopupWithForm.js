@@ -51,6 +51,11 @@ export default class PopupWithForm extends Popup {
     });
   }
 
+  closeWithoutCheckAndClearInputs() {
+    this._popup.classList.remove(`popup_opened`);
+    document.removeEventListener("keydown", this._handleEscCloseBind);
+  }
+
   buttonLoadingReset() {
     this._button.value = this._buttonContent;
   }

@@ -8,6 +8,7 @@ export default class Card {
     openPopup,
     isMy,
     popupClose,
+    popupCloseWithoutCheck,
     id,
     likeCard,
     unlike,
@@ -33,6 +34,7 @@ export default class Card {
     this._deleteCard = deleteCard;
     this._unlike = unlike;
     this._likeCard = likeCard;
+    this._popupCloseWithoutCheck = popupCloseWithoutCheck;
   }
 
   _createCard() {
@@ -82,9 +84,8 @@ export default class Card {
   }
 
   _removeCard() {
-    this._deleteButton.closest(".elements__element").remove();
-    this._popupClose.classList.remove(`popup_opened`);
-    this._deleteCard(this._id);
+    this._popupCloseWithoutCheck();
+    this._deleteCard(this._id, this._deleteButton);
     this._popupClose
       .querySelector(".popup__submit-button-close")
       .removeEventListener("click", this._removeCardBind);

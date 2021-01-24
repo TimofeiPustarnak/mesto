@@ -39,7 +39,25 @@ function cardElementOpenPopup() {
   popupConfirm.open();
   popupSubmitButton.classList.remove("popup__submit-button_inactive");
 }
-
+function createCardElement(data, bool) {
+  return new Card(
+    data.name,
+    data.link,
+    "#cards",
+    popupWithImage,
+    data.likes.length,
+    cardElementOpenPopup,
+    bool,
+    popupClose,
+    () => {
+      popupConfirm.closeWithoutCheckAndClearInputs();
+    },
+    data._id,
+    api.likeBind,
+    api.unLikeBind,
+    api.deleteCardBind
+  );
+}
 Promise.all([api.getInitialCards(), api.getUserInfo()])
   .then((data) => {
     userInfo.setUserInfo(data[1].name, data[1].about, data[1].avatar);
@@ -48,21 +66,7 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
         items: data[0],
         renderer: (item) => {
           let bool = item.owner.name == userInfo.getUserInfo().name;
-          const cardElement = new Card(
-            item.name,
-            item.link,
-            "#cards",
-            popupWithImage,
-            item.likes.length,
-            cardElementOpenPopup,
-            bool,
-            popupClose,
-            item._id,
-            api.likeBind,
-            api.unLikeBind,
-            api.deleteCardBind
-          );
-          return cardElement.getTemplate();
+          return createCardElement(item, bool).getTemplate();
         },
       },
       ".elements"
@@ -139,22 +143,7 @@ const popupAddCard = new PopupWithForm(
     api
       .addCard(popupCardFieldTile.value, popupCardFieldLink.value)
       .then((data) => {
-        const cardElement = new Card(
-          data.name,
-          data.link,
-          "#cards",
-          popupWithImage,
-          0,
-          cardElementOpenPopup,
-          true,
-          popupClose,
-          data._id,
-          api.likeBind,
-          api.unLikeBind,
-          api.deleteCardBind
-        );
-        // так если мы будем создавать cardElement в функции, в нее же все равно придется передать все эти параметры
-        section.addItem(cardElement.getTemplate());
+        section.addItem(createCardElement(data, true).getTemplate());
         popupAddCard.closeWithoutCheck();
       })
       .catch((err) => {
@@ -192,5 +181,4 @@ function enableValidation() {
     formValidator.enableValidation();
   });
 }
-function createCardElement() {}
 enableValidation();

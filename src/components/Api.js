@@ -67,11 +67,14 @@ export default class Api {
     }).then((res) => this._check(res));
   }
 
-  deleteCard(id) {
+  deleteCard(id, deleteButton) {
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => this._check(res));
+    }).then((res) => {
+      deleteButton.closest(".elements__element").remove();
+      return this._check(res);
+    });
   }
 
   _check(res) {
