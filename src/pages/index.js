@@ -58,11 +58,9 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
             bool,
             popupClose,
             item._id,
-            api.like,
-            api.unLike,
-            api.deleteCard,
-            "https://mesto.nomoreparties.co/v1/cohort-19",
-            "e7c816a7-6326-4823-aa23-7ff97d0294f3"
+            api.likeBind,
+            api.unLikeBind,
+            api.deleteCardBind
           );
           return cardElement.getTemplate();
         },
@@ -151,11 +149,9 @@ const popupAddCard = new PopupWithForm(
           true,
           popupClose,
           data._id,
-          api.like,
-          api.unLike,
-          api.deleteCard,
-          "https://mesto.nomoreparties.co/v1/cohort-19",
-          "e7c816a7-6326-4823-aa23-7ff97d0294f3"
+          api.likeBind,
+          api.unLikeBind,
+          api.deleteCardBind
         );
         // так если мы будем создавать cardElement в функции, в нее же все равно придется передать все эти параметры
         section.addItem(cardElement.getTemplate());

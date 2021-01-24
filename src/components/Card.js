@@ -11,9 +11,7 @@ export default class Card {
     id,
     likeCard,
     unlike,
-    deleteCard,
-    baseUrl,
-    authorization
+    deleteCard
   ) {
     this._text = text;
     this._link = link;
@@ -35,8 +33,6 @@ export default class Card {
     this._deleteCard = deleteCard;
     this._unlike = unlike;
     this._likeCard = likeCard;
-    this._baseUrl = baseUrl;
-    this._authorization = authorization;
   }
 
   _createCard() {
@@ -54,22 +50,22 @@ export default class Card {
 
   _like() {
     if (!this._likeButton.classList.contains("elements__like_active")) {
-      this._likeCard(this._id, this._baseUrl, this._authorization)
+      this._likeCard(this._id)
         .then((data) => {
           this._likeCounter.textContent = data.likes.length;
           this._likeButton.classList.toggle("elements__like_active");
         })
         .catch((err) => {
-          console.log(err); // выведем ошибку в консоль
+          console.log(err);
         });
     } else {
-      this._unlike(this._id, this._baseUrl, this._authorization)
+      this._unlike(this._id)
         .then((data) => {
           this._likeCounter.textContent = data.likes.length;
           this._likeButton.classList.toggle("elements__like_active");
         })
         .catch((err) => {
-          console.log(err); // выведем ошибку в консоль
+          console.log(err);
         });
     }
   }
@@ -88,7 +84,7 @@ export default class Card {
   _removeCard() {
     this._deleteButton.closest(".elements__element").remove();
     this._popupClose.classList.remove(`popup_opened`);
-    this._deleteCard(this._id, this._baseUrl, this._authorization);
+    this._deleteCard(this._id);
     this._popupClose
       .querySelector(".popup__submit-button-close")
       .removeEventListener("click", this._removeCardBind);

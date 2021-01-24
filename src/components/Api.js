@@ -2,6 +2,9 @@ export default class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
     this._headers = options.headers;
+    this.likeBind = this.like.bind(this);
+    this.unLikeBind = this.unLike.bind(this);
+    this.deleteCardBind = this.deleteCard.bind(this);
   }
 
   getInitialCards() {
@@ -9,15 +12,13 @@ export default class Api {
       headers: {
         authorization: this._headers.authorization,
       },
-    })
-      .then((res) => this._check(res))
-      .then((data) => data);
+    }).then((res) => this._check(res));
   }
 
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    }).then((res) => this._check(res));
+    }).then(this._check);
   }
 
   patchUserInfo(name, about) {
@@ -52,31 +53,33 @@ export default class Api {
     }).then((res) => this._check(res));
   }
 
-  like(id, baseUrl, authorization) {
-    return fetch(`${baseUrl}/cards/likes/${id}`, {
+  like(id) {
+    return fetch(`${this._baseUrl}/cards/likes/${id}`, {
       method: "PUT",
-      headers: { authorization: authorization },
-    }).then((res) => res.json());
+      headers: this._headers,
+    }).then((res) => this._check(res));
   }
 
-  unLike(id, baseUrl, authorization) {
-    return fetch(`${baseUrl}/cards/likes/${id}`, {
+  unLike(id) {
+    return fetch(`${this._baseUrl}/cards/likes/${id}`, {
       method: "DELETE",
-      headers: { authorization: authorization },
-    }).then((res) => res.json());
+      headers: this._headers,
+    }).then((res) => this._check(res));
   }
 
-  deleteCard(id, baseUrl, authorization) {
-    return fetch(`${baseUrl}/cards/${id}`, {
+  deleteCard(id) {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
-      headers: { authorization: authorization },
-    }).then((res) => res.json());
+      headers: this._headers,
+    }).then((res) => this._check(res));
   }
 
   _check(res) {
     if (res.ok) {
       return res.json();
+    } else {
+      console.log(`Ошибка: ${res.status}`);
+      return Promise.reject(`Ошибка: ${res.status}`);
     }
-    console.log(`Ошибка: ${res.status}`);
   }
 }

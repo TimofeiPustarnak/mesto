@@ -38,7 +38,7 @@ export default class PopupWithForm extends Popup {
   //   super.close(evt);
   //   if (this._closeCheck(evt)) {
   //     this._getInputsWithoutButtons().forEach((element) => {
-  //       // element.value = "";
+  // element.value = "";
   //     });
   //   }
   // }
