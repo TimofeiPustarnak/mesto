@@ -94,13 +94,13 @@ export default class Card {
         this._deleteButton.closest(".elements__element").remove();
         this._popupCloseWithoutCheck();
         this._buttonLoadingReset();
+        this._popupClose
+          .querySelector(".popup__submit-button-close")
+          .removeEventListener("click", this._removeCardBind);
       })
       .catch((err) => {
         console.log(err);
       });
-    this._popupClose
-      .querySelector(".popup__submit-button-close")
-      .removeEventListener("click", this._removeCardBind);
   }
 
   _renderCard(link, text) {
