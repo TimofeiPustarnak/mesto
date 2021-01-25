@@ -85,7 +85,13 @@ export default class Card {
 
   _removeCard() {
     this._popupCloseWithoutCheck();
-    this._deleteCard(this._id, this._deleteButton);
+    this._deleteCard(this._id)
+      .then(() => {
+        this._deleteButton.closest(".elements__element").remove();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     this._popupClose
       .querySelector(".popup__submit-button-close")
       .removeEventListener("click", this._removeCardBind);
