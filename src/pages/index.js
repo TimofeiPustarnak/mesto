@@ -52,6 +52,12 @@ function createCardElement(data, bool) {
     () => {
       popupConfirm.closeWithoutCheckAndClearInputs();
     },
+    () => {
+      popupConfirm.submitHandlerBind();
+    },
+    () => {
+      popupConfirm.buttonLoadingReset();
+    },
     data._id,
     api.likeBind,
     api.unLikeBind,

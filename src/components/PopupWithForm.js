@@ -22,7 +22,7 @@ export default class PopupWithForm extends Popup {
     });
   }
 
-  _submitHandler(evt) {
+  _submitHandler() {
     this._button.value = "Сохранение...";
     this._formSubmit();
     // this.close(evt);
@@ -30,8 +30,8 @@ export default class PopupWithForm extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._submitHandlerBind = this._submitHandler.bind(this);
-    this._popup.addEventListener("submit", this._submitHandlerBind);
+    this.submitHandlerBind = this._submitHandler.bind(this);
+    this._popup.addEventListener("submit", this.submitHandlerBind);
   }
 
   // close(evt) {
